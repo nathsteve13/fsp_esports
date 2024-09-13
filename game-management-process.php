@@ -10,4 +10,11 @@
     $description = $_POST['description'];
 
     $sql = "insert into game (name, description) value (?,?)";
+    $stmt = $mysqli->prepare($sql);
+    $stmt->bind_param('ss', $game_name, $description);
+    $stmt->execute();
+
+    $stmt->close();
+    $mysqli->close();
+    header("location: game-management.php");
 ?>
