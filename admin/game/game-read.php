@@ -112,8 +112,8 @@
                 echo "<div class='game-meta'>Description: " . $row['description'] . "</div>";
                 echo "</div>";
                 echo "<div class='game-actions'>";
-                echo "<a href='admin/game/game-update.php?idgame=" . $row['idgame'] . "'>Ubah Data</a>";
-                echo "<a href='admin/game/game-delete.php?idgame=" . $row['idgame'] . "'>Hapus Data</a>";
+                echo "<a href='game-update.php?idgame=" . $row['idgame'] . "'>Ubah Data</a>";
+                echo "<a href='game-delete.php?idgame=" . $row['idgame'] . "'>Hapus Data</a>";
                 echo "</div>";
                 echo "</div>";
             }
