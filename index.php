@@ -6,6 +6,6 @@
     <title>Home</title>
 </head>
 <body>
-    <a href="game-management.php">Game Management</a>
+    <a href="admin/game/game-read.php">Game Management</a>
 </body>
 </html>

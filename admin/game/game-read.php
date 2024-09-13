@@ -102,7 +102,7 @@
         $res = $stmt->get_result();
 
         if ($res->num_rows == 0) {
-            echo "No movies found!";
+            echo "No games found!";
         } else {
             echo "<div class='game-grid'>";
             while ($row = $res->fetch_assoc()) {
@@ -112,8 +112,8 @@
                 echo "<div class='game-meta'>Description: " . $row['description'] . "</div>";
                 echo "</div>";
                 echo "<div class='game-actions'>";
-                echo "<a href='editmovie.php?idmovie=" . $row['idgame'] . "'>Ubah Data</a>";
-                echo "<a href='deletemovie.php?idmovie=" . $row['idgame'] . "'>Hapus Data</a>";
+                echo "<a href='admin/game/game-update.php?idgame=" . $row['idgame'] . "'>Ubah Data</a>";
+                echo "<a href='admin/game/game-delete.php?idgame=" . $row['idgame'] . "'>Hapus Data</a>";
                 echo "</div>";
                 echo "</div>";
             }
