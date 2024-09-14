@@ -16,5 +16,5 @@ if ($mysqli->connect_errno) {
 
     $stmt->close();
     $mysqli->close();
-    header("location: event-management.php?hasil=".$jumlah_yang_dieksekusi);
+    header("location: event-management-insert.php?hasil=".$jumlah_yang_dieksekusi);
 ?>
