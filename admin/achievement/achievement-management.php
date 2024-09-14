@@ -6,8 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <a href="edit-ach.php">Edit Achievement</a>
     <a href="add-ach.php">Add Achievement</a>
-    <a href="delete-ach.php">delete Achievement</a>
+    <a href="achievement-view.php">View Achievement</a>
 </body>
 </html>
