@@ -14,7 +14,7 @@
         
         $idevent = $_GET['idevent'];
 
-        $sql = "SELECT * FROM event WHERE idevent = ?";
+        $sql = "select * from event WHERE idevent = ?";
         $stmt = $mysqli->prepare($sql);
         if (!$stmt) {
             die("SQL error: " . $mysqli->error);
