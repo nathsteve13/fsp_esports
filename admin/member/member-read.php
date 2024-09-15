@@ -12,7 +12,11 @@
             die("Failed to connect to MySQL: " . $mysqli->connect_error);
         }
 
-        $sql = "select * from member";
+        $sql = "SELECT member.fname, member.lname, member.username, member.idmember, team.name AS team_name
+                FROM member
+                LEFT JOIN team_members ON member.idmember = team_members.idmember
+                LEFT JOIN team ON team_members.idteam = team.idteam";
+        
         $stmt = $mysqli->prepare($sql);
         $stmt->execute();
         $res = $stmt->get_result();
@@ -25,6 +29,13 @@
                 echo "<div class='card-content'>";
                 echo "<div class='card-name'>" . $row['fname'] . " " . $row['lname']. "</div>";
                 echo "<div class='card-meta'>Username: " . $row['username'] . "</div>";
+                
+                if ($row['team_name']) {
+                    echo "<div class='card-meta'>Team: " . $row['team_name'] . "</div>";
+                } else {
+                    echo "<div class='card-meta'>Team: No Team</div>";
+                }
+
                 echo "</div>";
                 echo "<div class='card-actions'>";
                 echo "<a href='member-update.php?idmember=" . $row['idmember'] . "'>Ubah Data</a>";
