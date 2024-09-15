@@ -11,7 +11,7 @@
         if ($mysqli->connect_errno) {
             die("Failed to connect to MySQL: " . $mysqli->connect_error);
         }
-
+        
         $idgame = $_GET['idteam'];
 
         $sql = "delete from team where idteam = ?";
