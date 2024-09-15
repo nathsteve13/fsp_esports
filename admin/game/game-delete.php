@@ -24,5 +24,6 @@
             echo "Delete failed : ".$stmt->error;
         }
     ?>
+    <a href="game-read.php">Back</a>
 </body>
 </html>
