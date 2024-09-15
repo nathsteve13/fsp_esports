@@ -8,7 +8,7 @@
     $stmt = $mysqli->prepare($sql);
     $stmt->bind_param('i', $idmember);
     if($stmt->execute()) {
-        header("member-read.php");
+        header("location: member-read.php");
     } else {
         echo "Delete failed : ".$stmt->error;
     }
