@@ -111,7 +111,7 @@
                 echo "<div class='event-name'>" . $row['name'] . "</div>";
                 echo "<div class='event-meta'>Description: " . $row['description'] . "</div>";
                 echo "</div>";
-                echo "<div class='game-actions'>";
+                echo "<div class='event-actions'>";
                 echo "<a href='event-management-update-proses.php?idevent=" . $row['idevent'] . "'>Ubah Data</a>";
                 echo "<a href='event-management-delete-proses.php?idevent=" . $row['idevent'] . "'>Hapus Data</a>";
                 echo "</div>";
