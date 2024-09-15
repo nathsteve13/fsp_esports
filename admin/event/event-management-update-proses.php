@@ -29,9 +29,9 @@
             $date = $_POST['eventDate']; $rilis=date("Y-m-d", strtotime($date));
             $description = $_POST['eventDescription'];
 
-            $sqlupdate = "update event set name = ?, date = ?, description = ?, where idevent = ?";
+            $sqlupdate = "update event set name = ?, date = ?, description = ? where idevent = ?";
             $stmt = $mysqli->prepare($sqlupdate);
-            $stmt->bind_param("sssi", $name, $date, $description, $idevent);
+            $stmt->bind_param("sssi", $event, $date, $description, $idevent);
 
             if ($stmt->execute()) {
                 echo "Data updated!";
