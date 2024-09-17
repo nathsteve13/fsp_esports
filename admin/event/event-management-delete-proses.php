@@ -19,7 +19,7 @@
         $stmt->bind_param('i', $idevent);
 
         if($stmt->execute()) {
-            echo "Event deleted!";
+            header("location: event-view.php");
         } else {
             echo "Delete failed : ".$stmt->error;
         }

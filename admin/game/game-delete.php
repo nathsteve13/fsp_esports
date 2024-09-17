@@ -19,11 +19,10 @@
         $stmt->bind_param('i', $idgame);
 
         if($stmt->execute()) {
-            echo "Game deleted!";
+            header("location: game-read.php");
         } else {
             echo "Delete failed : ".$stmt->error;
         }
     ?>
-    <a href="game-read.php">Back</a>
 </body>
 </html>

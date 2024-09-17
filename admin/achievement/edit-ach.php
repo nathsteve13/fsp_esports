@@ -25,7 +25,7 @@ if (isset($_GET['id'])) {
         $stmt->bind_param("isssi", $idteam, $name, $date, $description, $id);
 
         if ($stmt->execute()) {
-            echo "Achievement updated successfully!";
+            header("location: achievement-view.php");
         } else {
             echo "Error: " . $stmt->error;
         }

@@ -16,5 +16,5 @@ $stmt->execute();
 $stmt->close();
 $mysqli->close();
 
-header("Location: add-ach.php?hasil=1");
+header("Location: achievement-view.php");
 ?>

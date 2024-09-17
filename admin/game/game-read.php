@@ -40,5 +40,7 @@
         }
     ?>
     <a href="game-create.php" class="insert-button">New Game</a>
+    <a href="../../index.php" class="insert-button">Back to view</a>
+
 </body>
 </html>

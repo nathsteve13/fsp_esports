@@ -45,5 +45,6 @@ $mysqli->close();
 ?>
 
 <a href="add-ach.php" class="insert-button">New Achievement</a>
+<a href="../../index.php" class="insert-button">Back to home</a>
 </body>
 </html>

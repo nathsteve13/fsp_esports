@@ -82,7 +82,7 @@
                             <?php echo $game['name']; ?>
                         </option>
                     <?php } ?>
-                </sel>
+                </select>
             </div>
 
             <div class="form-group">

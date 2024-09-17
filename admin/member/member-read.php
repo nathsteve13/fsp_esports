@@ -53,7 +53,7 @@
         echo "</div>";
     }
     ?>
-    <a href="../../index.php" class="insert-button">Back to view member</a>
+    <a href="../../index.php" class="insert-button">Back to view</a>
 
 </body>
 

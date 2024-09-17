@@ -39,5 +39,6 @@
         }
     ?>
     <a href="event-management-insert.php" class="insert-button">New Event</a>
+    <a href="../../index.php" class="insert-button">Back to home</a>
 </body>
 </html>

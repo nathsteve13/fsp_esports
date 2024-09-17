@@ -9,6 +9,7 @@
 <body>
     <div class="container">
         <h1>Team Data</h1>
+        <div class="team-card-grid">
         <?php 
             $mysqli = new mysqli("localhost", "root", "", "esport");
             if ($mysqli->connect_errno) {
@@ -63,8 +64,11 @@
             $stmt->close();
             $mysqli->close();
         ?>
-    </div>
-    <a href="team-create.php" class="insert-button">New Team</a>
+        </div>
 
+        <a href="team-create.php" class="new-achievement-btn">New Team</a>
+        <a href="../../index.php" class="insert-button">Back to view</a>
+
+    </div>
 </body>
 </html>

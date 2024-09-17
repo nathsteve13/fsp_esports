@@ -38,7 +38,7 @@
         $stmt->bind_param("sssi", $name, $date, $description, $idevent);
 
         if ($stmt->execute()) {
-            echo "Data updated!";
+            header("location: event-view.php");
         } else {
             echo "Update failed : " . $stmt->error;
         }

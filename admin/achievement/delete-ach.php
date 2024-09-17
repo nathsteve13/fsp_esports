@@ -12,7 +12,7 @@ if (isset($_GET['id'])) {
     $stmt->bind_param("i", $id);
 
     if ($stmt->execute()) {
-        echo "Achievement deleted successfully!";
+        header("location: achievement-view.php");
     } else {
         echo "Error: " . $stmt->error;
     }
