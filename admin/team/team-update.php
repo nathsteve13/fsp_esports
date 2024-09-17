@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update Team</title>
+    <link rel="stylesheet" href="adminstyle.css">
 </head>
 <body>
     <?php 
@@ -66,39 +67,41 @@
     ?>
 
     <h1>Update Team</h1>
-    <form action="" method="POST">
-        <div class="form">
-            <label for="team_name">Team Name:</label>
-            <input type="text" name="team_name" id="team_name" value="<?php echo $team['name']; ?>" required>
-        </div>
-
-        <div class="form">
-            <label for="idgame">Game:</label>
-            <select name="idgame" id="idgame" required>
-                <?php while ($game = $games_result->fetch_assoc()) { ?>
-                    <option value="<?php echo $game['idgame']; ?>" <?php if ($team['idgame'] == $game['idgame']) echo 'selected'; ?>>
-                        <?php echo $game['name']; ?>
-                    </option>
-                <?php } ?>
-            </select>
-        </div>
-
-        <div class="form">
-            <label for="team_members">Team Members:</label>
-            <div>
-                <?php while ($member = $members_result->fetch_assoc()) { ?>
-                    <input type="checkbox" name="team_members[]" value="<?php echo $member['idmember']; ?>" 
-                        <?php if (in_array($member['idmember'], $team_members)) echo 'checked'; ?>>
-                    <label><?php echo $member['fname'] . " " . $member['lname']; ?></label><br>
-                <?php } ?>
+    <div class="container">
+        <form action="" method="POST">
+            <div class="form-group">
+                <label for="team_name">Team Name:</label>
+                <input type="text" name="team_name" id="team_name" value="<?php echo $team['name']; ?>" required>
             </div>
-        </div>
 
-        <div class="form">
-            <input type="submit" value="Update Team">
-        </div>
+            <div class="form-group">
+                <label for="idgame">Game:</label>
+                <select name="idgame" id="idgame" required>
+                    <?php while ($game = $games_result->fetch_assoc()) { ?>
+                        <option value="<?php echo $game['idgame']; ?>" <?php if ($team['idgame'] == $game['idgame']) echo 'selected'; ?>>
+                            <?php echo $game['name']; ?>
+                        </option>
+                    <?php } ?>
+                </sel>
+            </div>
 
-        <a href="team-read.php">Back to Team List</a>
-    </form>
+            <div class="form-group">
+                <label for="team_members">Team Members:</label>
+                <div>
+                    <?php while ($member = $members_result->fetch_assoc()) { ?>
+                        <input type="checkbox" name="team_members[]" value="<?php echo $member['idmember']; ?>" 
+                            <?php if (in_array($member['idmember'], $team_members)) echo 'checked'; ?>>
+                        <label><?php echo $member['fname'] . " " . $member['lname']; ?></label><br>
+                    <?php } ?>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Update Team">
+            </div>
+
+            <a href="team-read.php">Back to Team List</a>
+        </form>
+    </div>
 </body>
 </html>
