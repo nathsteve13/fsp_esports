@@ -35,13 +35,13 @@
             background-color: #0056b3;
         }
 
-        .game-grid {
+        .event-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 20px;
         }
 
-        .game-card {
+        .event-card {
             background-color: #fff;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -49,41 +49,41 @@
             transition: transform 0.2s;
         }
 
-        .game-card:hover {
+        .event-card:hover {
             transform: scale(1.05);
         }
 
-        .game-content {
+        .event-content {
             padding: 15px;
         }
 
-        .game-title {
+        .event-title {
             font-size: 18px;
             font-weight: bold;
             margin: 0 0 10px;
         }
 
-        .game-meta {
+        .event-meta {
             color: #666;
             font-size: 14px;
             margin-bottom: 10px;
         }
 
-        .game-actions {
+        .event-actions {
             text-align: center;
             padding: 10px;
             background-color: #f9f9f9;
             border-top: 1px solid #eee;
         }
 
-        .game-actions a {
+        .event-actions a {
             text-decoration: none;
             color: #007BFF;
             font-weight: bold;
             margin: 0 10px;
         }
 
-        .game-actions a:hover {
+        .event-actions a:hover {
             color: #0056b3;
         }
     </style>
