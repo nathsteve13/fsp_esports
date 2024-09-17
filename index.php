@@ -46,7 +46,7 @@
             
             <!-- login -->
             <div class="navbar-right">
-                <a href="#" class="btn btn-light rounded-pill">
+                <a href="register.php" class="btn btn-light rounded-pill">
                     <i class="fas fa-user"></i> Masuk ke Akun
                 </a>
             </div>
