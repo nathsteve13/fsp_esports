@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update Member</title>
     <link rel="stylesheet" href="adminstyle.css">
-
 </head>
 <body>
     <?php 
@@ -35,7 +34,7 @@
             $stmt->bind_param("ssi", $fname, $lname, $idmember);
 
             if ($stmt->execute()) {
-                echo "Data updated!";
+                header("location: member-read.php");
             } else {
                 echo "Update failed : ".$stmt->error;
             }

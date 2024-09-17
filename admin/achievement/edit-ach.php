@@ -63,7 +63,6 @@ $mysqli->close();
                         echo "<option value='" . $row['idteam'] . "' $selected>" . $row['name'] . "</option>";
                     }
 
-<<<<<<< HEAD
             $stmt->close();
             $mysqli->close();
             ?>
@@ -80,30 +79,6 @@ $mysqli->close();
 
         <input type="submit" value="Update">
     </form>
-=======
-                    $stmt->close();
-                    $mysqli->close();
-                    ?>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Achievement Name:</label>
-                <input type="text" name="name" value="<?php echo $achievement['name']; ?>" required>
-            </div>
-            <div class="form-group">
-                <label>Date:</label>
-                <input type="date" name="date" value="<?php echo $achievement['date']; ?>" required>
-            </div>
-            <div class="form-group">
-                <label>Description:</label>
-                <textarea name="description"><?php echo $achievement['description']; ?></textarea>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Update">
-            </div>
-        </form>
-    </div>
->>>>>>> a779d710bfe445ed58cec54760e57a86b3724924
 </body>
 
 </html>

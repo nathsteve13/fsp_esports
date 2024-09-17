@@ -14,5 +14,5 @@
     $stmt->close();
     $mysqli->close();
 
-    header("location: team-read.php");
+    header("location: index.php");
 ?>
