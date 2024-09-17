@@ -4,89 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Detail</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            margin: 0;
-            padding: 20px;
-        }
-
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-
-        .insert-button {
-            display: block;
-            width: 200px;
-            margin: 20px auto;
-            padding: 10px 20px;
-            text-align: center;
-            background-color: #007BFF;
-            color: white;
-            text-decoration: none;
-            font-size: 16px;
-            border-radius: 5px;
-            transition: background-color 0.2s;
-        }
-
-        .insert-button:hover {
-            background-color: #0056b3;
-        }
-
-        .game-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .game-card {
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            transition: transform 0.2s;
-        }
-
-        .game-card:hover {
-            transform: scale(1.05);
-        }
-
-        .game-content {
-            padding: 15px;
-        }
-
-        .game-title {
-            font-size: 18px;
-            font-weight: bold;
-            margin: 0 0 10px;
-        }
-
-        .game-meta {
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-
-        .game-actions {
-            text-align: center;
-            padding: 10px;
-            background-color: #f9f9f9;
-            border-top: 1px solid #eee;
-        }
-
-        .game-actions a {
-            text-decoration: none;
-            color: #007BFF;
-            font-weight: bold;
-            margin: 0 10px;
-        }
-
-        .game-actions a:hover {
-            color: #0056b3;
-        }
-    </style>
+    <link rel="stylesheet" href="adminstyle.css">
+    
 </head>
 <body>
     
@@ -104,14 +23,14 @@
         if ($res->num_rows == 0) {
             echo "No games found!";
         } else {
-            echo "<div class='game-grid'>";
+            echo "<div class='card-grid'>";
             while ($row = $res->fetch_assoc()) {
-                echo "<div class='game-card'>";
-                echo "<div class='game-content'>";
-                echo "<div class='game-name'>" . $row['name'] . "</div>";
-                echo "<div class='game-meta'>Description: " . $row['description'] . "</div>";
+                echo "<div class='card-card'>";
+                echo "<div class='card-content'>";
+                echo "<div class='card-name'>" . $row['name'] . "</div>";
+                echo "<div class='card-meta'>Description: " . $row['description'] . "</div>";
                 echo "</div>";
-                echo "<div class='game-actions'>";
+                echo "<div class='card-actions'>";
                 echo "<a href='game-update.php?idgame=" . $row['idgame'] . "'>Ubah Data</a>";
                 echo "<a href='game-delete.php?idgame=" . $row['idgame'] . "'>Hapus Data</a>";
                 echo "</div>";
@@ -120,5 +39,6 @@
             echo "</div>";
         }
     ?>
+    <a href="game-create.php" class="insert-button">New Game</a>
 </body>
 </html>

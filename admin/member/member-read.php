@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="adminstyle.css">
     <title>Member List</title>
 </head>
 <body>
@@ -24,8 +25,9 @@
         if ($res->num_rows == 0) {
             echo "No Member Found!";
         } else {
+            echo "<div class='card-grid'>";
             while ($row = $res->fetch_assoc()) {
-                echo "<div class='card-grid'>";
+                echo "<div class='card-card'>";
                 echo "<div class='card-content'>";
                 echo "<div class='card-name'>" . $row['fname'] . " " . $row['lname']. "</div>";
                 echo "<div class='card-meta'>Username: " . $row['username'] . "</div>";
@@ -43,9 +45,11 @@
                 echo "</div>";
                 echo "</div>";
             }
+            echo "</div>";
         }
     ?>
 
-    <a href="member-create.php">Add Member</a>
+    <a href="member-create.php" class="insert-button">New Member</a>
+
 </body>
 </html>

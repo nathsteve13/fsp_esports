@@ -16,5 +16,5 @@
 
     $stmt->close();
     $mysqli->close();
-    header("location: game-management.php");
+    header("location: game-read.php");
 ?>

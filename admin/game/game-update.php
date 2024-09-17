@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update Game</title>
+    <link rel="stylesheet" href="adminstyle.css">
+
 </head>
 <body>
     <?php 
@@ -33,32 +35,34 @@
             $stmt->bind_param("ssi", $name, $description, $idgame);
 
             if ($stmt->execute()) {
-                echo "Data updated!";
+                header("location: game-read.php");
             } else {
                 echo "Update failed : ".$stmt->error;
             }
         }
 
         $mysqli->close();
+        
     ?>
 
+    <div class="container">
+        <form method="POST">
+            <div class="form-group">
+                <label>Game Name : </label>
+                <input type="text" id="game-name" name="game-name"  value="<?php echo $game['name']; ?>" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Description : </label>
+                <input type="text" id="description" name="description" value="<?php echo $game['description']; ?>" required>
+            </div>
 
-    <form method="POST">
-        <div class="game-form">
-            <label>Game Name : </label>
-            <input type="text" id="game-name" name="game-name"  value="<?php echo $game['name']; ?>" required>
-        </div>
-        
-        <div class="game-form">
-            <label>Description : </label>
-            <input type="text" id="description" name="description" value="<?php echo $game['description']; ?>" required>
-        </div>
+            <div class="form-group">
+                <input type="submit" value="Update Game">
+            </div>
 
-        <div class="game-form">
-            <input type="submit" value="Update Game">
-        </div>
-
-        <a href="game-read.php">Back to game view</a>
-    </form>
+        </form>
+    </div>
+    
 </body>
 </html>

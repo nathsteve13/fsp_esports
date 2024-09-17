@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update Member</title>
+    <link rel="stylesheet" href="adminstyle.css">
+
 </head>
 <body>
     <?php 
@@ -41,23 +43,25 @@
 
         $mysqli->close();
     ?>
+    <div class="container">
+        <h1>PROFILE</h1>
+        <form method="POST">
+            <div class="form-group">
+                <label>First Name : </label>
+                <input type="text" id="first-name" name="first-name"  value="<?php echo $member['fname']; ?>" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Last Name : </label>
+                <input type="text" id="last-name" name="last-name" value="<?php echo $member['lname']; ?>" required>
+            </div>
 
-    <form method="POST">
-        <div class="form">
-            <label>First Name : </label>
-            <input type="text" id="first-name" name="first-name"  value="<?php echo $member['fname']; ?>" required>
-        </div>
-        
-        <div class="form">
-            <label>Last Name : </label>
-            <input type="text" id="last-name" name="last-name" value="<?php echo $member['lname']; ?>" required>
-        </div>
+            <div class="form-group">
+                <input type="submit" value="Update Member">
+            </div>
 
-        <div class="form">
-            <input type="submit" value="Update Member">
-        </div>
-
-        <a href="member-read.php">Back to member view</a>
-    </form>
+            <a href="member-read.php">Back to member view</a>
+        </form>
+    </div>
 </body>
 </html>
