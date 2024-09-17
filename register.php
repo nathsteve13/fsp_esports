@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <h1>REGISTER</h1>
-        <form action="register-process.php" method="POST" enctype="multipart/form-data">
+        <form action="register-proses.php" method="POST" enctype="multipart/form-data">
             
             <div class="form-group">
                 <label>First Name : </label>

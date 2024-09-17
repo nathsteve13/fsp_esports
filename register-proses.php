@@ -3,12 +3,15 @@
     if($mysqli->connect_error){
         die("Connection failed". $mysqli->connect_error);
     }
-    $idgame = $_POST['idgame'];
-    $name = $_POST['team-name'];
+    $fname = $_POST['first-name'];
+    $lname = $_POST['last-name'];
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $profile = "member";
 
-    $sql = "INSERT INTO team (idgame, name) VALUES (?, ?)";
+    $sql = "INSERT INTO member (fname, lname, username, password, profile) VALUES (?, ?, ?, ? ,?)";
     $stmt = $mysqli->prepare($sql);
-    $stmt->bind_param("is",$idgame, $name);
+    $stmt->bind_param("sssss",$fname, $lname, $username, $password, $profile);
     $stmt->execute();
 
     $stmt->close();
