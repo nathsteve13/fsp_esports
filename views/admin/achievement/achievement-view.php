@@ -1,5 +1,5 @@
 <?php
-require_once('Achievement.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . "/class/achievement.php");
 
 $achievement = new Achievement();
 $result = $achievement->getAchievements();
@@ -44,8 +44,8 @@ $result = $achievement->getAchievements();
         </tbody>
     </table>
 
-    <a href="achievement-add.php" class="insert-button">Add New Achievement</a>
-    <a href="../../index.php" class="insert-button">Back to home</a>
+    <a href="achievement-add.php" >Add New Achievement</a>
+    <a href="../../admin/dashboard.php">Back to home</a>
 </body>
 
 </html>

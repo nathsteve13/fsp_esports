@@ -22,7 +22,7 @@
                 <select name="idteam" id="idteam" required>
                     <option value="" disabled selected>Select a Team</option>
                     <?php
-                    require_once('Achievement.php');
+                    require_once($_SERVER['DOCUMENT_ROOT'] . "/class/achievement.php");
                     $achievement = new Achievement();
                     $teams = $achievement->getTeams();
                     while ($row = $teams->fetch_assoc()) {

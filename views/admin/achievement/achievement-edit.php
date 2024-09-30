@@ -1,5 +1,5 @@
 <?php
-require_once('Achievement.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . "/class/achievement.php");
 
 $achievement = new Achievement();
 
