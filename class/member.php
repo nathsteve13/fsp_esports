@@ -8,7 +8,27 @@ class Member extends ParentClass {
         parent::__construct();
     }
 
-    public function getMember($username) {
+    public function getAllMembers() {
+        $sql = "SELECT * FROM member";
+        $stmt = $this->mysqli->prepare($sql);
+    
+        if (!$stmt) {
+            die("Prepare statement failed: " . $this->mysqli->error);
+        }
+    
+        $stmt->execute();
+        return $stmt->get_result();
+    }
+
+    public function getMemberById($idmember) { //untuk edit data
+        $sql = "SELECT * FROM member WHERE idmember = ?";
+        $stmt = $this->mysqli->prepare($sql);
+        $stmt->bind_param("i", $idmember);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
+    }
+
+    public function getMember($username) { //untuk login
         $sql = "SELECT * FROM member WHERE username = ?";
         $stmt = $this->mysqli->prepare($sql);
         $stmt->bind_param("s", $username);
@@ -53,7 +73,7 @@ class Member extends ParentClass {
         }
     }
 
-    public function updateProfile($member_id, $profile) {
+    public function updateProfile($member_id) {
         $profile = "admin";
         $sql = "UPDATE member SET profile = ? WHERE idmember = ?";
         $stmt = $this->mysqli->prepare($sql);
