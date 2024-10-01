@@ -1,18 +1,8 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'] . "/class/team.php");
-require_once($_SERVER['DOCUMENT_ROOT'] . "/class/game.php");
 
 $team = new Team();
 $teams = $team->getTeams();
-
-$game = new Game();
-$games = $game->getGames();
-
-// Prepare array of game names
-$game_names = [];
-while ($game_row = $games->fetch_assoc()) {
-    $game_names[$game_row['idgame']] = $game_row['name'];
-}
 ?>
 
 <!DOCTYPE html>
@@ -31,7 +21,7 @@ while ($game_row = $games->fetch_assoc()) {
         <tr>
             <th>ID</th>
             <th>Team Name</th>
-            <th>Game</th>
+            <th>Game ID</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -41,10 +31,12 @@ while ($game_row = $games->fetch_assoc()) {
                 <tr>
                     <td><?php echo $row['idteam']; ?></td>
                     <td><?php echo $row['name']; ?></td>
-                    <td><?php echo $game_names[$row['idgame']]; ?></td>
+                    <td><?php echo $row['idgame']; ?></td>
                     <td>
                         <a href="team-edit.php?id=<?php echo $row['idteam']; ?>">Edit</a> |
-                        <a href="team-delete.php?id=<?php echo $row['idteam']; ?>" onclick="return confirm('Are you sure?')">Delete</a>
+                        <a href="team-delete.php?id=<?php echo $row['idteam']; ?>" onclick="return confirm('Are you sure?')">Delete</a> |
+                        <a href="team-member-view.php?id=<?php echo $row['idteam']; ?>">View Members</a> |
+                        <a href="join-proposal-admin.php?idteam=<?php echo $row['idteam']; ?>">Join Proposal</a>
                     </td>
                 </tr>
             <?php endwhile; ?>

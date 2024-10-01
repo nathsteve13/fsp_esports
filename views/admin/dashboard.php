@@ -29,6 +29,7 @@ $current_user = $member->getMember($_SESSION["username"]);
     <a href="../admin/game/game-view.php">Game</a>
     <a href="../admin/team/team-view.php">Team</a>
     <a href="../admin/member/member-view.php">Member</a>
+    <a href="../admin/team/join-proposal-admin.php">Join Proposal</a>
 
 </body>
 </html>
