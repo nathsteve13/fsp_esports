@@ -1,7 +1,11 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'] . "/class/team_members.php");
+require_once("../../paging.php");
 
 $teamMembers = new TeamMembers();
+$limit = 10;
+$no_hal = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$offset = ($no_hal - 1) * $limit;
 
 if (isset($_GET['idmember']) && isset($_GET['idteam'])) {
     $idteam = $_GET['idteam'];
@@ -16,7 +20,7 @@ if (isset($_GET['idmember']) && isset($_GET['idteam'])) {
 
 if (isset($_GET['id'])) {
     $idteam = $_GET['id'];
-    $members = $teamMembers->getMembersByTeam($idteam);
+    $total_members = $teamMembers->getMembersByTeam($idteam)->num_rows;
 } else {
     header("Location: team-view.php");
     exit();
@@ -64,6 +68,10 @@ if (isset($_GET['id'])) {
         <?php endif; ?>
     </tbody>
 </table>
+
+<?php
+echo generate_page($total_members, $limit, "", $no_hal);
+?>
 
 <a href="team-view.php">Back to Teams</a>
 

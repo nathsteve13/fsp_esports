@@ -6,8 +6,15 @@ class Game extends ParentClass {
     public function __construct() {
         parent::__construct();
     }
+    public function countGame()
+    {
+        $sql = "SELECT COUNT(*) AS total FROM game";
+        $result = $this->mysqli->query($sql);
+        $row = $result->fetch_assoc();
+        return $row['total'];
+    }
 
-    public function getGames() {
+    public function getGame($offset = 0, $limit = 0) {
         $sql = "SELECT * FROM game";
         $stmt = $this->mysqli->prepare($sql);
 
@@ -18,6 +25,19 @@ class Game extends ParentClass {
         $stmt->execute();
         return $stmt->get_result();
     }
+    public function getGames($offset = 0, $limit = 0) {
+        $sql = "SELECT * FROM game";
+        if ($limit > 0) {
+            $sql .= " LIMIT ?, ?";
+            $stmt = $this->mysqli->prepare($sql);
+            $stmt->bind_param('ii', $offset, $limit);
+        } else {
+            $stmt = $this->mysqli->prepare($sql);
+        }
+        $stmt->execute();
+        return $stmt->get_result();
+    }
+    
 
     public function getGameById($idgame) {
         $sql = "SELECT * FROM game WHERE idgame = ?";
