@@ -49,10 +49,10 @@ $total_achievements = $achievement->countAchievements();
                 <p>Welcome, <?php echo $current_user['username'] ?></p>
             </div>
             <ul class="nav-links">
-                <li><a href="event-view.php">Events</a></li>
-                <li><a href="game-view.php">Games</a></li>
-                <li><a href="team-view.php">Teams</a></li>
-                <li><a href="member-view.php">Members</a></li>
+                <li><a href="event/event-view.php">Events</a></li>
+                <li><a href="game/game-view.php">Games</a></li>
+                <li><a href="team/team-view.php">Teams</a></li>
+                <li><a href="member/member-view.php">Members</a></li>
             </ul>
         </div>
 
