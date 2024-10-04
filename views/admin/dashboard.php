@@ -43,7 +43,8 @@ $total_achievements = $achievement->countAchievements();
         <!-- Sidebar -->
         <div class="sidebar">
             <div class="logo">
-                <img src="../../public/images/logoubaya.png" alt="Logo">
+                <a href="dashboard.php"><img src="../../public/images/logoubaya.png" alt="Logo"></a>
+                
             </div>
             <div class="user-info">
                 <p>Welcome, <?php echo $current_user['username'] ?></p>
