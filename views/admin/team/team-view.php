@@ -33,6 +33,8 @@ $pagination = generate_page($jumlahData, $limit, '', $no_hal);
             <li><a href="../game/game-view.php">Games</a></li>
             <li><a href="../team/team-view.php">Teams</a></li>
             <li><a href="../member/member-view.php">Members</a></li>
+            <li><a href="../achievement/achievement-view.php">Achievement</a></li>
+
         </ul>
     </div>
 
