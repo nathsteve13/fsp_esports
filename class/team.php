@@ -1,15 +1,31 @@
-<?php 
+<?php
 
 require_once("parent.php");
 
-class Team extends ParentClass {
-    public function __construct() {
+class Team extends ParentClass
+{
+    public function __construct()
+    {
         parent::__construct();
     }
-
-    public function getTeams() {
+    public function countTeams()
+    {
+        $sql = "SELECT COUNT(*) AS total FROM team";
+        $result = $this->mysqli->query($sql);
+        $row = $result->fetch_assoc();
+        return $row['total'];
+    }
+    public function getTeams($offset = 0, $limit = 0)
+    {
         $sql = "SELECT * FROM team";
-        $stmt = $this->mysqli->prepare($sql);
+
+        if ($limit > 0) {
+            $sql .= " LIMIT ?, ?";
+            $stmt = $this->mysqli->prepare($sql);
+            $stmt->bind_param('ii', $offset, $limit);
+        } else {
+            $stmt = $this->mysqli->prepare($sql);
+        }
 
         if (!$stmt) {
             die("Prepare statement failed: " . $this->mysqli->error);
@@ -19,7 +35,8 @@ class Team extends ParentClass {
         return $stmt->get_result();
     }
 
-    public function getTeamById($idteam) {
+    public function getTeamById($idteam)
+    {
         $sql = "SELECT * FROM team WHERE idteam = ?";
         $stmt = $this->mysqli->prepare($sql);
 
@@ -32,7 +49,8 @@ class Team extends ParentClass {
         return $stmt->get_result()->fetch_assoc();
     }
 
-    public function addTeam($name, $idgame) {
+    public function addTeam($name, $idgame)
+    {
         $sql = "INSERT INTO team (name, idgame) VALUES (?, ?)";
         $stmt = $this->mysqli->prepare($sql);
 
@@ -49,7 +67,8 @@ class Team extends ParentClass {
         }
     }
 
-    public function editTeam($idteam, $name, $idgame) {
+    public function editTeam($idteam, $name, $idgame)
+    {
         $sql = "UPDATE team SET name = ?, idgame = ? WHERE idteam = ?";
         $stmt = $this->mysqli->prepare($sql);
 
@@ -61,7 +80,8 @@ class Team extends ParentClass {
         return $stmt->execute();
     }
 
-    public function deleteTeam($idteam) {
+    public function deleteTeam($idteam)
+    {
         $sql = "DELETE FROM team WHERE idteam = ?";
         $stmt = $this->mysqli->prepare($sql);
 
@@ -73,4 +93,3 @@ class Team extends ParentClass {
         return $stmt->execute();
     }
 }
-?>

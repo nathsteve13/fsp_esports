@@ -1,8 +1,14 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'] . "/class/game.php");
+require_once("../../paging.php");
 
 $game = new Game();
-$games = $game->getGames();
+$limit = 10; 
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$offset = ($page - 1) * $limit;
+$total_games = $game->countGame();
+$games = $game->getGames($offset, $limit);
+
 ?>
 
 <!DOCTYPE html>
@@ -45,6 +51,11 @@ $games = $game->getGames();
         <?php endif; ?>
     </tbody>
 </table>
+<div>
+    <?php
+    $pagination = generate_page($total_games, $limit,'', $page); 
+    echo $pagination; ?>
+</div>
 
 <a href="game-add.php">Add New Game</a>
 
