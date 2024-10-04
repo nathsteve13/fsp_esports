@@ -20,7 +20,8 @@ if (isset($_GET['idmember']) && isset($_GET['idteam'])) {
 
 if (isset($_GET['id'])) {
     $idteam = $_GET['id'];
-    $total_members = $teamMembers->getMembersByTeam($idteam)->num_rows;
+    $members = $teamMembers->getMembersByTeam($idteam); 
+    $total_members = $members->num_rows; 
 } else {
     header("Location: team-view.php");
     exit();

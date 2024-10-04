@@ -23,47 +23,70 @@ if (isset($_GET['id'])) {
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Achievement</title>
-    <link rel="stylesheet" href="adminstyle.css">
+    <link rel="stylesheet" href="../../../public/css/style-admin.css"> <!-- External CSS -->
 </head>
 
 <body>
-    <div class="container">
-        <h1>Edit Achievement</h1>
-        <form method="POST" action="">
-            <div class="form-group">
-                <label>Team:</label>
-                <select name="idteam" required>
-                    <?php
-                    $teams = $achievement->getTeams();
-                    while ($row = $teams->fetch_assoc()) {
-                        $selected = $row['idteam'] == $achievementData['idteam'] ? 'selected' : '';
-                        echo "<option value='" . $row['idteam'] . "' $selected>" . $row['name'] . "</option>";
-                    }
-                    ?>
-                </select>
-            </div>
 
-            <div class="form-group">
-                <label>Achievement Name:</label>
-                <input type="text" name="name" value="<?php echo $achievementData['name']; ?>" required>
-            </div>
-
-            <div class="form-group">
-                <label>Date:</label>
-                <input type="date" name="date" value="<?php echo $achievementData['date']; ?>" required>
-            </div>
-
-            <div class="form-group">
-                <label>Description:</label>
-                <textarea name="description" rows="4" required><?php echo $achievementData['description']; ?></textarea>
-            </div>
-
-            <div class="form-group">
-                <input type="submit" value="Update Achievement">
-            </div>
-        </form>
+<div class="dashboard-container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo">
+            <img src="../../../public/images/logoubaya.png" alt="Logo">
+        </div>
+        <ul class="nav-links">
+            <li><a href="../event/event-view.php">Events</a></li>
+            <li><a href="../game/game-view.php">Games</a></li>
+            <li><a href="../team/team-view.php">Teams</a></li>
+            <li><a href="../member/member-view.php">Members</a></li>
+            <li><a href="../achievement/achievement-view.php">Achievements</a></li>
+        </ul>
     </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="form-container">
+            <h1>Edit Achievement</h1>
+            <form method="POST" action="">
+                <div class="form-group">
+                    <label for="idteam">Team:</label>
+                    <select name="idteam" id="idteam" required>
+                        <?php
+                        $teams = $achievement->getTeams();
+                        while ($row = $teams->fetch_assoc()) {
+                            $selected = $row['idteam'] == $achievementData['idteam'] ? 'selected' : '';
+                            echo "<option value='" . $row['idteam'] . "' $selected>" . $row['name'] . "</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="name">Achievement Name:</label>
+                    <input type="text" name="name" id="name" value="<?php echo htmlspecialchars($achievementData['name']); ?>" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="date">Date:</label>
+                    <input type="date" name="date" id="date" value="<?php echo htmlspecialchars($achievementData['date']); ?>" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <textarea name="description" id="description" rows="4" required><?php echo htmlspecialchars($achievementData['description']); ?></textarea>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Update Achievement" class="submit-button">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 </body>
 
 </html>
