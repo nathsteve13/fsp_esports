@@ -1,54 +1,70 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'] . "/class/team.php");
+require_once("../../paging.php");
 
 $team = new Team();
-$teams = $team->getTeams();
+$no_hal = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$limit = 10;
+$offset = ($no_hal - 1) * $limit;
+$jumlahData = $team->countTeams();
+$teams = $team->getTeams($offset, $limit);
+$pagination = generate_page($jumlahData, $limit, '', $no_hal);
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Teams</title>
 </head>
+
 <body>
 
-<h1>Teams List</h1>
+    <h1>Teams List</h1>
 
-<table border="1" cellpadding="10" cellspacing="0">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Team Name</th>
-            <th>Game ID</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php if ($teams->num_rows > 0): ?>
-            <?php while ($row = $teams->fetch_assoc()): ?>
-                <tr>
-                    <td><?php echo $row['idteam']; ?></td>
-                    <td><?php echo $row['name']; ?></td>
-                    <td><?php echo $row['idgame']; ?></td>
-                    <td>
-                        <a href="team-edit.php?id=<?php echo $row['idteam']; ?>">Edit</a> |
-                        <a href="team-delete.php?id=<?php echo $row['idteam']; ?>" onclick="return confirm('Are you sure?')">Delete</a> |
-                        <a href="team-member-view.php?id=<?php echo $row['idteam']; ?>">View Members</a> |
-                        <a href="join-proposal-admin.php?idteam=<?php echo $row['idteam']; ?>">Join Proposal</a>
-                    </td>
-                </tr>
-            <?php endwhile; ?>
-        <?php else: ?>
+    <table border="1" cellpadding="10" cellspacing="0">
+        <thead>
             <tr>
-                <td colspan="4">No teams available</td>
+                <th>ID</th>
+                <th>Team Name</th>
+                <th>Game ID</th>
+                <th>Actions</th>
             </tr>
-        <?php endif; ?>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            <?php if ($teams->num_rows > 0): ?>
+                <?php while ($row = $teams->fetch_assoc()): ?>
+                    <tr>
+                        <td><?php echo $row['idteam']; ?></td>
+                        <td><?php echo $row['name']; ?></td>
+                        <td><?php echo $row['idgame']; ?></td>
+                        <td>
+                            <a href="team-edit.php?id=<?php echo $row['idteam']; ?>">Edit</a> |
+                            <a href="team-delete.php?id=<?php echo $row['idteam']; ?>" onclick="return confirm('Are you sure?')">Delete</a> |
+                            <a href="team-member-view.php?id=<?php echo $row['idteam']; ?>">View Members</a> |
+                            <a href="join-proposal-admin.php?idteam=<?php echo $row['idteam']; ?>">Join Proposal</a>
+                        </td>
+                    </tr>
+                <?php endwhile; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="4">No teams available</td>
+                </tr>
+            <?php endif; ?>
+        </tbody>
+    </table>
 
-<a href="team-add.php">Add New Team</a>
+    <div>
+        <?php
+
+        echo $pagination;
+        ?>
+    </div>
+
+    <a href="team-add.php">Add New Team</a>
 
 </body>
+
 </html>

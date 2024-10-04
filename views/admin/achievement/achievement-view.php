@@ -1,8 +1,15 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'] . "/class/achievement.php");
+require_once("../../paging.php");
 
 $achievement = new Achievement();
-$result = $achievement->getAchievements();
+
+$no_hal = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$limit = 10; 
+$offset = ($no_hal - 1) * $limit;
+
+$result = $achievement->getAchievements($offset, $limit);
+$totalData = $achievement->countAchievements();
 ?>
 
 <!DOCTYPE html>
@@ -28,23 +35,33 @@ $result = $achievement->getAchievements();
             </tr>
         </thead>
         <tbody>
-            <?php while ($row = $result->fetch_assoc()) { ?>
+            <?php if ($result->num_rows > 0) { ?>
+                <?php while ($row = $result->fetch_assoc()) { ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars($row['idachievement']); ?></td>
+                        <td><?php echo htmlspecialchars($row['achievement_name']); ?></td>
+                        <td><?php echo htmlspecialchars($row['team_name']); ?></td>
+                        <td><?php echo htmlspecialchars($row['date']); ?></td>
+                        <td><?php echo htmlspecialchars($row['description']); ?></td>
+                        <td>
+                            <a href="achievement-edit.php?id=<?php echo htmlspecialchars($row['idachievement']); ?>">Edit</a> |
+                            <a href="achievement-delete.php?id=<?php echo htmlspecialchars($row['idachievement']); ?>" onclick="return confirm('Are you sure?')">Delete</a>
+                        </td>
+                    </tr>
+                <?php } ?>
+            <?php } else { ?>
                 <tr>
-                    <td><?php echo $row['idachievement']; ?></td>
-                    <td><?php echo $row['achievement_name']; ?></td>
-                    <td><?php echo $row['team_name']; ?></td>
-                    <td><?php echo $row['date']; ?></td>
-                    <td><?php echo $row['description']; ?></td>
-                    <td>
-                        <a href="achievement-edit.php?id=<?php echo $row['idachievement']; ?>">Edit</a> |
-                        <a href="achievement-delete.php?id=<?php echo $row['idachievement']; ?>" onclick="return confirm('Are you sure?')">Delete</a>
-                    </td>
+                    <td colspan="6">No achievements found.</td>
                 </tr>
             <?php } ?>
         </tbody>
     </table>
 
-    <a href="achievement-add.php" >Add New Achievement</a>
+    <div style="text-align: center; margin-top: 20px;">
+        <?php echo generate_page($totalData, $limit, '', $no_hal); ?>
+    </div>
+
+    <a href="achievement-add.php">Add New Achievement</a>
     <a href="../../admin/dashboard.php">Back to home</a>
 </body>
 
