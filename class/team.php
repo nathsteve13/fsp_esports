@@ -35,6 +35,19 @@ class Team extends ParentClass
         return $stmt->get_result();
     }
 
+    public function getAllTeams() //untuk tambah team ke event
+    {
+        $sql = "SELECT * FROM team";
+        $stmt = $this->mysqli->prepare($sql);
+
+        if (!$stmt) {
+            die("Prepare statement failed: " . $this->mysqli->error);
+        }
+
+        $stmt->execute();
+        return $stmt->get_result();
+    }
+
     public function getTeamById($idteam)
     {
         $sql = "SELECT * FROM team WHERE idteam = ?";

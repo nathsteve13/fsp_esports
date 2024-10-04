@@ -1,8 +1,11 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'] . "/class/event.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/class/event_teams.php");  
 require_once("../../paging.php");
 
 $event = new Event();
+$eventTeams = new EventTeams();  
+
 $total_events = $event->getTotalEvents();
 
 $no_hal = (isset($_GET["page"])) ? $_GET["page"] : 1;
@@ -30,6 +33,7 @@ $events = $event->getEvents($offset, $LIMIT);
             <th>Event Name</th>
             <th>Date</th>
             <th>Description</th>
+            <th>Teams Participating</th> 
             <th>Actions</th>
         </tr>
     </thead>
@@ -42,6 +46,20 @@ $events = $event->getEvents($offset, $LIMIT);
                     <td><?php echo $row['date']; ?></td>
                     <td><?php echo $row['description']; ?></td>
                     <td>
+                        <?php
+                        $teams = $eventTeams->getTeamsByEvent($row['idevent']);
+                        if ($teams->num_rows > 0):
+                            echo "<ul>";
+                            while ($team = $teams->fetch_assoc()):
+                                echo "<li>" . $team['name'] . "</li>";
+                            endwhile;
+                            echo "</ul>";
+                        else:
+                            echo "No teams registered";
+                        endif;
+                        ?>
+                    </td>
+                    <td>
                         <a href="event-edit.php?id=<?php echo $row['idevent']; ?>">Edit</a> |
                         <a href="event-delete.php?id=<?php echo $row['idevent']; ?>" onclick="return confirm('Are you sure?')">Delete</a>
                     </td>
@@ -49,7 +67,7 @@ $events = $event->getEvents($offset, $LIMIT);
             <?php endwhile; ?>
         <?php else: ?>
             <tr>
-                <td colspan="5">No events available</td>
+                <td colspan="6">No events available</td>
             </tr>
         <?php endif; ?>
     </tbody>
