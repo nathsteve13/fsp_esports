@@ -40,9 +40,9 @@ class Member extends ParentClass {
 
     public function authenticate($username, $plain_pass) {
         $member = $this->getMember($username);
-
+        
         if($member && password_verify($plain_pass, $member['password'])) {
-            return $member;
+            return $member;     
         } else { 
             return false;
         }
@@ -60,7 +60,6 @@ class Member extends ParentClass {
         }
 
         $stmt->bind_param("sssss", $fname, $lname, $username, $hashed_pass, $profile);
-        $stmt->execute();
 
         if ($stmt->execute()) {
             if ($stmt->affected_rows > 0) {
