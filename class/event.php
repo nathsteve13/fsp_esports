@@ -16,6 +16,19 @@ class Event extends ParentClass {
         return $row['total'];
     }
     
+    public function countEvents()
+    {
+        $sql = "SELECT COUNT(*) AS total FROM event";
+        $result = $this->mysqli->query($sql);
+        if ($result) {
+            $row = $result->fetch_assoc();
+            return $row['total'];
+        } else {
+            return 0;
+        }
+    }
+
+    
     public function getEvents($offset = 0, $limit = 0) {
         $sql = "SELECT * FROM event";
         // $stmt = $this->mysqli->prepare($sql);

@@ -29,6 +29,17 @@ class JoinProposal extends ParentClass {
         $stmt->bind_param("ii", $idteam, $idmember);
         return $stmt->execute();
     }
+    public function countJoinProposals()
+    {
+        $sql = "SELECT COUNT(*) AS total FROM join_proposal";
+        $result = $this->mysqli->query($sql);
+        if ($result) {
+            $row = $result->fetch_assoc();
+            return $row['total'];
+        } else {
+            return 0;
+        }
+    }
 
     public function rejectProposal($idteam, $idmember) {
         $sql = "DELETE FROM join_proposal WHERE idteam = ? AND idmember = ?";
