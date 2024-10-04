@@ -1,8 +1,15 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'] . "/class/event.php");
+require_once("../../paging.php");
 
 $event = new Event();
-$events = $event->getEvents();
+$total_events = $event->getTotalEvents();
+
+$no_hal = (isset($_GET["page"])) ? $_GET["page"] : 1;
+$LIMIT = 3;
+$offset = ($no_hal-1) * $LIMIT;
+
+$events = $event->getEvents($offset, $LIMIT);
 ?>
 
 <!DOCTYPE html>
@@ -47,6 +54,8 @@ $events = $event->getEvents();
         <?php endif; ?>
     </tbody>
 </table>
+
+<?php echo generate_page($total_events, $LIMIT, '', $no_hal)."<br>"; ?>
 
 <a href="event-add.php">Add New Event</a>
 

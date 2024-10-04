@@ -1,8 +1,15 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'] . "/class/member.php");
+require_once("../../paging.php");
 
 $member = new Member();
-$members = $member->getAllMembers();  // Tambahkan metode `getAllMembers` di class Member jika belum ada
+$total_members = $member->getTotalMember();
+
+$no_hal = (isset($_GET["page"])) ? $_GET["page"] : 1;
+$LIMIT = 3;
+$offset = ($no_hal-1) * $LIMIT;
+
+$members = $member->getAllMembers($offset, $LIMIT);
 ?>
 
 <!DOCTYPE html>
@@ -53,6 +60,8 @@ $members = $member->getAllMembers();  // Tambahkan metode `getAllMembers` di cla
         <?php endif; ?>
     </tbody>
 </table>
+
+<?php echo generate_page($total_members, $LIMIT, '', $no_hal)."<br>"; ?>
 
 <a href="member-add.php">Add New Member</a>
 

@@ -7,12 +7,25 @@ class Event extends ParentClass {
         parent::__construct();
     }
 
-    public function getEvents() {
-        $sql = "SELECT * FROM event";
+    public function getTotalEvents() {
+        $sql = "SELECT COUNT(*) as total FROM event";
         $stmt = $this->mysqli->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        return $row['total'];
+    }
+    
+    public function getEvents($offset = 0, $limit = 0) {
+        $sql = "SELECT * FROM event";
+        // $stmt = $this->mysqli->prepare($sql);
 
-        if (!$stmt) {
-            die("Prepare statement failed: " . $this->mysqli->error);
+        if ($limit > 0) {
+            $sql .= " LIMIT ?, ?";
+            $stmt = $this->mysqli->prepare($sql);
+            $stmt->bind_param('ii', $offset, $limit);
+        } else {
+            $stmt = $this->mysqli->prepare($sql);
         }
 
         $stmt->execute();

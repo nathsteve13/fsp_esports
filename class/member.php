@@ -8,14 +8,27 @@ class Member extends ParentClass {
         parent::__construct();
     }
 
-    public function getAllMembers() {
-        $sql = "SELECT * FROM member";
+    public function getTotalMember() {
+        $sql = "SELECT COUNT(*) as total FROM member";
         $stmt = $this->mysqli->prepare($sql);
-    
-        if (!$stmt) {
-            die("Prepare statement failed: " . $this->mysqli->error);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        return $row['total'];
+    }
+
+    public function getAllMembers($offset = 0, $limit = 0) {
+        $sql = "SELECT * FROM member";
+        // $stmt = $this->mysqli->prepare($sql);
+
+        if ($limit > 0) {
+            $sql .= " LIMIT ?, ?";
+            $stmt = $this->mysqli->prepare($sql);
+            $stmt->bind_param('ii', $offset, $limit);
+        } else {
+            $stmt = $this->mysqli->prepare($sql);
         }
-    
+
         $stmt->execute();
         return $stmt->get_result();
     }
