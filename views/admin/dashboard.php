@@ -40,14 +40,10 @@ $total_achievements = $achievement->countAchievements();
     </head>
 <body>
     <div class="dashboard-container">
-        <!-- Sidebar -->
         <div class="sidebar">
             <div class="logo">
                 <a href="dashboard.php"><img src="../../public/images/logoubaya.png" alt="Logo"></a>
                 
-            </div>
-            <div class="user-info">
-                <p>Welcome, <?php echo $current_user['username'] ?></p>
             </div>
             <ul class="nav-links">
                 <li><a href="event/event-view.php">Events</a></li>
@@ -59,6 +55,11 @@ $total_achievements = $achievement->countAchievements();
         </div>
 
         <div class="main-content">
+            
+            <div class="user-info">
+                <h2>Welcome, <?php echo htmlspecialchars($current_user['username']); ?>!</h2>
+            </div>
+
             <div class="cards">
                 <div class="card">
                     <h3>Total Teams</h3>
