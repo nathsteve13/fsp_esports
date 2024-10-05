@@ -11,6 +11,6 @@ if($_SESSION['role'] == 'admin'){
     header("location: ../admin/dashboard.php");
 }
 else{
-    header("location: ../member/index.php");
+    header("location: ../member/home.php");
 }
 ?>

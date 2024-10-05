@@ -3,20 +3,37 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/class/team.php");
 
 $team = new Team();
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $name = $_POST['name'];
-    $idgame = $_POST['idgame'];
+$now = strtotime("now");
+$next = true;
 
-    $is_added = $team->addTeam($name, $idgame);
+if (isset($_SESSION['timestamp'])) {
+    $diff = $now - $_SESSION['timestamp'];
 
-    if ($is_added) {
-        header("Location: team-add.php?success=1");
-        exit();
+    if ($diff < 60) {
+        $next = false;
     } else {
-        echo "Failed to add team.";
+        $_SESSION['timestamp'] = $now;
     }
 } else {
-    header("Location: team-add.php");
-    exit();
+    $_SESSION['timestamp'] = $now;
 }
-?>
+if ($next) {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $name = $_POST['name'];
+        $idgame = $_POST['idgame'];
+
+        $is_added = $team->addTeam($name, $idgame);
+
+        if ($is_added) {
+            header("Location: team-add.php?success=1");
+            exit();
+        } else {
+            echo "Failed to add team.";
+        }
+    } else {
+        header("Location: team-add.php");
+        exit();
+    }
+} else {
+    echo "Mohon tunggu " . (60 - $diff) . " sebelum mengirim kembali";
+}

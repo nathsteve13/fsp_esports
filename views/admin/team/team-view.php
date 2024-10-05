@@ -2,6 +2,7 @@
 require_once($_SERVER['DOCUMENT_ROOT'] . "/class/team.php");
 require_once("../../paging.php");
 
+
 $team = new Team();
 
 $no_hal = isset($_GET['page']) ? (int)$_GET['page'] : 1;
