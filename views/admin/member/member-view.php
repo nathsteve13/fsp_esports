@@ -83,8 +83,6 @@ $members = $member->getAllMembers($offset, $LIMIT);
         <div class="pagination">
             <?php echo generate_page($total_members, $LIMIT, '', $no_hal)."<br>"; ?>
         </div>
-
-        <a href="member-add.php" class="add-button">Add New Member</a>
     </div>
 </div>
 
