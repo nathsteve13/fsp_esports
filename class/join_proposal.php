@@ -7,24 +7,46 @@ class JoinProposal extends ParentClass {
         parent::__construct();
     }
 
-    public function getProposalsByTeam($idteam) {
-        $sql = "SELECT jp.idmember, m.fname, m.lname, m.username, jp.status 
-                FROM join_proposal jp
-                JOIN member m ON jp.idmember = m.idmember
-                WHERE jp.idteam = ? AND jp.status = 'pending'";
+    public function countProposalsByTeam($idteam) {
+        $sql = "SELECT COUNT(*) AS total FROM join_proposal WHERE idteam = ? AND status = 'waiting'";
         $stmt = $this->mysqli->prepare($sql);
         $stmt->bind_param("i", $idteam);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        return $row['total'];
+    }
+
+    public function getProposalsByTeam($idteam, $limit, $offset) {
+        $sql = "SELECT jp.idmember, m.fname, m.lname, m.username, jp.description, jp.status 
+                FROM join_proposal jp
+                JOIN member m ON jp.idmember = m.idmember
+                WHERE jp.idteam = ? AND jp.status = 'waiting'
+                LIMIT ? OFFSET ?";
+        $stmt = $this->mysqli->prepare($sql);
+        $stmt->bind_param("iii", $idteam, $limit, $offset);
         $stmt->execute();
         return $stmt->get_result();
     }
 
     public function acceptProposal($idteam, $idmember) {
-        $sql = "INSERT INTO team_members (idteam, idmember) VALUES (?, ?)";
+        // Cek apakah anggota sudah ada di team_members
+        $sql = "SELECT * FROM team_members WHERE idteam = ? AND idmember = ?";
         $stmt = $this->mysqli->prepare($sql);
         $stmt->bind_param("ii", $idteam, $idmember);
         $stmt->execute();
-
-        $sql = "UPDATE join_proposal SET status = 'accepted' WHERE idteam = ? AND idmember = ?";
+        $result = $stmt->get_result();
+        
+        if ($result->num_rows == 0) { // Jika anggota belum ada
+            // Lakukan insert
+            $sql = "INSERT INTO team_members (idteam, idmember) VALUES (?, ?)";
+            $stmt = $this->mysqli->prepare($sql);
+            $stmt->bind_param("ii", $idteam, $idmember);
+            $stmt->execute();
+        }
+    
+        // Update status menjadi 'approved'
+        $sql = "UPDATE join_proposal SET status = 'approved' WHERE idteam = ? AND idmember = ?";
         $stmt = $this->mysqli->prepare($sql);
         $stmt->bind_param("ii", $idteam, $idmember);
         return $stmt->execute();
@@ -42,7 +64,8 @@ class JoinProposal extends ParentClass {
     }
 
     public function rejectProposal($idteam, $idmember) {
-        $sql = "DELETE FROM join_proposal WHERE idteam = ? AND idmember = ?";
+        // Update status menjadi 'rejected' alih-alih menghapus data
+        $sql = "UPDATE join_proposal SET status = 'rejected' WHERE idteam = ? AND idmember = ?";
         $stmt = $this->mysqli->prepare($sql);
         $stmt->bind_param("ii", $idteam, $idmember);
         return $stmt->execute();

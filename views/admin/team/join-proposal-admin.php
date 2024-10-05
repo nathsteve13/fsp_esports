@@ -1,11 +1,17 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'] . "/class/join_proposal.php");
+require_once("../../paging.php");
 
 $joinProposal = new JoinProposal();
 
 if (isset($_GET['idteam'])) {
     $idteam = $_GET['idteam'];
-    $proposals = $joinProposal->getProposalsByTeam($idteam);
+    $limit = 10;
+    $no_hal = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+    $offset = ($no_hal - 1) * $limit;
+
+    $proposals = $joinProposal->getProposalsByTeam($idteam, $limit, $offset);
+    $total_proposals = $joinProposal->countProposalsByTeam($idteam);
 } else {
     header("Location: team-view.php");
     exit();
@@ -18,14 +24,22 @@ function redirect($idteam) {
 
 if (isset($_GET['accept'])) {
     $idmember = $_GET['accept'];
-    $joinProposal->acceptProposal($idteam, $idmember);
-    redirect($idteam);
+    if (!empty($idmember)) { // Pastikan $idmember tidak kosong
+        $joinProposal->acceptProposal($idteam, $idmember);
+        redirect($idteam);
+    } else {
+        echo "Invalid member ID.";
+    }
 }
 
 if (isset($_GET['reject'])) {
     $idmember = $_GET['reject'];
-    $joinProposal->rejectProposal($idteam, $idmember);
-    redirect($idteam);
+    if (!empty($idmember)) { // Pastikan $idmember tidak kosong
+        $joinProposal->rejectProposal($idteam, $idmember);
+        redirect($idteam);
+    } else {
+        echo "Invalid member ID.";
+    };
 }
 
 ?>
@@ -72,6 +86,7 @@ if (isset($_GET['reject'])) {
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Username</th>
+                    <th>Description</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -83,6 +98,7 @@ if (isset($_GET['reject'])) {
                             <td><?php echo $row['fname']; ?></td>
                             <td><?php echo $row['lname']; ?></td>
                             <td><?php echo $row['username']; ?></td>
+                            <td><?php echo $row['description']; ?></td>
                             <td>
                                 <a href="join-proposal-admin.php?accept=<?php echo $row['idmember']; ?>&idteam=<?php echo $idteam; ?>" class="accept-button">Accept</a> |
                                 <a href="join-proposal-admin.php?reject=<?php echo $row['idmember']; ?>&idteam=<?php echo $idteam; ?>" onclick="return confirm('Are you sure to reject?')" class="reject-button">Reject</a>
@@ -96,6 +112,10 @@ if (isset($_GET['reject'])) {
                 <?php endif; ?>
             </tbody>
         </table>
+
+        <div class="pagination">
+            <?php echo generate_page($total_proposals, $limit, '', $no_hal) . "<br>"; ?>
+        </div>
 
         <a href="team-view.php" class="back-button">Back to Teams</a>
     </div>
