@@ -3,12 +3,20 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/class/team.php");
 require_once("../../paging.php");
 
 $team = new Team();
+
 $no_hal = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $limit = 10;
 $offset = ($no_hal - 1) * $limit;
+
 $jumlahData = $team->countTeams();
+
 $teams = $team->getTeams($offset, $limit);
+
 $pagination = generate_page($jumlahData, $limit, '', $no_hal);
+
+if (!$teams) {
+    die("Failed to load teams data.");
+}
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +26,7 @@ $pagination = generate_page($jumlahData, $limit, '', $no_hal);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Teams</title>
-    <link rel="stylesheet" href="../../../public/css/style-admin.css"> <!-- External CSS -->
+    <link rel="stylesheet" href="../../../public/css/style-admin.css"> 
 </head>
 
 <body>
@@ -40,12 +48,13 @@ $pagination = generate_page($jumlahData, $limit, '', $no_hal);
     <div class="main-content">
         <h1>Teams List</h1>
 
+        <!-- Tabel untuk menampilkan daftar tim dan game -->
         <table class="styled-table">
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>Team Name</th>
-                    <th>Game ID</th>
+                    <th>Game Name</th> <!-- Menampilkan nama game -->
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -54,8 +63,8 @@ $pagination = generate_page($jumlahData, $limit, '', $no_hal);
                     <?php while ($row = $teams->fetch_assoc()): ?>
                         <tr>
                             <td><?php echo htmlspecialchars($row['idteam']); ?></td>
-                            <td><?php echo htmlspecialchars($row['name']); ?></td>
-                            <td><?php echo htmlspecialchars($row['idgame']); ?></td>
+                            <td><?php echo htmlspecialchars($row['team_name']); ?></td>
+                            <td><?php echo htmlspecialchars($row['game_name']); ?></td> <!-- Menampilkan nama game -->
                             <td>
                                 <a href="team-edit.php?id=<?php echo $row['idteam']; ?>">Edit</a> |
                                 <a href="team-delete.php?id=<?php echo $row['idteam']; ?>" onclick="return confirm('Are you sure?')">Delete</a> |
@@ -72,6 +81,7 @@ $pagination = generate_page($jumlahData, $limit, '', $no_hal);
             </tbody>
         </table>
 
+        <!-- Pagination -->
         <div class="pagination">
             <?php echo $pagination; ?>
         </div>

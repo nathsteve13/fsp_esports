@@ -17,7 +17,9 @@ class Team extends ParentClass
     }
     public function getTeams($offset = 0, $limit = 0)
     {
-        $sql = "SELECT * FROM team";
+        $sql = "SELECT team.idteam, team.name AS team_name, game.name AS game_name 
+            FROM team 
+            JOIN game ON team.idgame = game.idgame" ;
 
         if ($limit > 0) {
             $sql .= " LIMIT ?, ?";
