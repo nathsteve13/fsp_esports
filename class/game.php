@@ -14,8 +14,8 @@ class Game extends ParentClass {
         return $row['total'];
     }
 
-    public function getGame($offset = 0, $limit = 0) {
-        $sql = "SELECT * FROM game";
+    public function getGame() {
+        $sql = "SELECT idgame, name FROM game";
         $stmt = $this->mysqli->prepare($sql);
 
         if (!$stmt) {
@@ -25,6 +25,7 @@ class Game extends ParentClass {
         $stmt->execute();
         return $stmt->get_result();
     }
+
     public function getGames($offset = 0, $limit = 0) {
         $sql = "SELECT * FROM game";
         if ($limit > 0) {

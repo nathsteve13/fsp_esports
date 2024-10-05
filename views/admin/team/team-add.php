@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Team</title>
-    <link rel="stylesheet" href="../../../public/css/style-admin.css"> <!-- External CSS, optional -->
+    <link rel="stylesheet" href="../../../public/css/style-admin.css">
 </head>
 
 <body>
@@ -20,8 +20,7 @@
             <li><a href="../game/game-view.php">Games</a></li>
             <li><a href="../team/team-view.php">Teams</a></li>
             <li><a href="../member/member-view.php">Members</a></li>
-            <li><a href="../achievement/achievement-view.php">Achievement</a></li>
-
+            <li><a href="../achievement/achievement-view.php">Achievements</a></li>
         </ul>
     </div>
 
@@ -30,7 +29,7 @@
             <h1>Add New Team</h1>
 
             <?php if (isset($_GET['success']) && $_GET['success'] == 1): ?>
-                <p class="success-message">Team added successfully!</p>
+                <p style="color: blue;">Team added successfully!</p>
             <?php endif; ?>
 
             <form action="team-add-proses.php" method="POST">
@@ -42,23 +41,26 @@
                 <div class="form-group">
                     <label for="idgame">Select Game:</label>
                     <select name="idgame" id="idgame" required>
-                        <option value="">Select a game</option>
-                        <?php while ($row = $games->fetch_assoc()): ?>
-                            <option value="<?php echo htmlspecialchars($row['idgame']); ?>">
-                                <?php echo htmlspecialchars($row['name']); ?>
-                            </option>
-                        <?php endwhile; ?>
+                        <option value="" disabled selected>Select a Game</option>
+                        <?php
+                        require_once($_SERVER['DOCUMENT_ROOT'] . "/class/game.php");
+                        $game = new Game();
+                        $games = $game->getGames(); // Pastikan ini benar
+                        if ($games->num_rows > 0) {
+                            while ($row = $games->fetch_assoc()) {
+                                echo "<option value='" . $row['idgame'] . "'>" . htmlspecialchars($row['name']) . "</option>";
+                            }
+                        } else {
+                            echo "<option disabled>No games available</option>";
+                        }
+                        ?>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <button type="submit" class="submit-button">Add Team</button>
+                    <input type="submit" value="Add Team" class="submit-button">
                 </div>
             </form>
-
-            <div class="navigation-links">
-                <a href="team-view.php" class="back-button">View Teams</a>
-            </div>
         </div>
     </div>
 </div>
