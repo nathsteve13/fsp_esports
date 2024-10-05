@@ -1,8 +1,11 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'] . "/class/team_members.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/class/team.php"); 
 require_once("../../paging.php");
 
 $teamMembers = new TeamMembers();
+$team = new Team(); 
+
 $limit = 10;
 $no_hal = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($no_hal - 1) * $limit;
@@ -22,6 +25,9 @@ if (isset($_GET['id'])) {
     $idteam = $_GET['id'];
     $members = $teamMembers->getMembersByTeam($idteam); 
     $total_members = $members->num_rows; 
+    
+    $teamData = $team->getTeamById($idteam);
+    $team_name = $teamData['name']; 
 } else {
     header("Location: team-view.php");
     exit();
@@ -33,48 +39,66 @@ if (isset($_GET['id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Team Members</title>
+    <title>View Team Members - <?php echo htmlspecialchars($team_name); ?></title>
+    <link rel="stylesheet" href="../../../public/css/style-admin.css"> <!-- External CSS -->
 </head>
 <body>
 
-<h1>Team Members</h1>
+<div class="dashboard-container">
+    <div class="sidebar">
+        <div class="logo">
+            <a href="../dashboard.php"><img src="../../../public/images/logoubaya.png" alt="Logo"></a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="../event/event-view.php">Events</a></li>
+            <li><a href="../game/game-view.php">Games</a></li>
+            <li><a href="../team/team-view.php">Teams</a></li>
+            <li><a href="../member/member-view.php">Members</a></li>
+            <li><a href="../achievement/achievement-view.php">Achievement</a></li>
+        </ul>
+    </div>
 
-<table border="1" cellpadding="10" cellspacing="0">
-    <thead>
-        <tr>
-            <th>Member ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Username</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php if ($members->num_rows > 0): ?>
-            <?php while ($row = $members->fetch_assoc()): ?>
+    <div class="main-content">
+        <h1>Team Members - <?php echo htmlspecialchars($team_name); ?></h1>
+
+        <table class="styled-table">
+            <thead>
                 <tr>
-                    <td><?php echo $row['idmember']; ?></td>
-                    <td><?php echo $row['fname']; ?></td>
-                    <td><?php echo $row['lname']; ?></td>
-                    <td><?php echo $row['username']; ?></td>
-                    <td>
-                        <a href="team-member-view.php?id=<?php echo $idteam; ?>&idmember=<?php echo $row['idmember']; ?>&idteam=<?php echo $idteam; ?>" onclick="return confirm('Are you sure you want to remove this member from the team?')">Delete</a>
-                    </td>
+                    <th>Member ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Username</th>
+                    <th>Actions</th>
                 </tr>
-            <?php endwhile; ?>
-        <?php else: ?>
-            <tr>
-                <td colspan="5">No members in this team</td>
-            </tr>
-        <?php endif; ?>
-    </tbody>
-</table>
+            </thead>
+            <tbody>
+                <?php if ($members->num_rows > 0): ?>
+                    <?php while ($row = $members->fetch_assoc()): ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($row['idmember']); ?></td>
+                            <td><?php echo htmlspecialchars($row['fname']); ?></td>
+                            <td><?php echo htmlspecialchars($row['lname']); ?></td>
+                            <td><?php echo htmlspecialchars($row['username']); ?></td>
+                            <td>
+                                <a href="team-member-view.php?id=<?php echo $idteam; ?>&idmember=<?php echo $row['idmember']; ?>&idteam=<?php echo $idteam; ?>" onclick="return confirm('Are you sure you want to remove this member from the team?')">Delete</a>
+                            </td>
+                        </tr>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="5">No members in this team</td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
 
-<?php
-echo generate_page($total_members, $limit, "", $no_hal);
-?>
+        <div class="pagination">
+            <?php echo generate_page($total_members, $limit, "", $no_hal); ?>
+        </div>
 
-<a href="team-view.php">Back to Teams</a>
+        <a href="team-view.php" class="back-button">Back to Teams</a>
+    </div>
+</div>
 
 </body>
 </html>
