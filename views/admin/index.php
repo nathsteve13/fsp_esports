@@ -7,7 +7,7 @@ if(!isset($_SESSION["username"])) {
 require_once($_SERVER['DOCUMENT_ROOT'] . "/class/member.php");
 
 $member = new Member();
-if($_SESSION['role'] == 'admin'){
+if($_SESSION['role']== 'admin'){
     header("location: ../admin/dashboard.php");
 }
 else{

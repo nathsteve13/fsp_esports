@@ -8,6 +8,12 @@ if(!isset($_SESSION["username"])) {
 require_once($_SERVER['DOCUMENT_ROOT'] . "/class/member.php");
 
 $member = new Member();
+if($_SESSION['role'] == 'admin'){
+    
+}
+else{
+    header("location: ../member/index.php");
+}
 $current_user = $member->getMember($_SESSION["username"]);
 
 

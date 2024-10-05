@@ -104,5 +104,4 @@ class Member extends ParentClass {
         return $stmt->affected_rows > 0;
     }
 }
-
 ?>
