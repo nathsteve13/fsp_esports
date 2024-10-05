@@ -64,11 +64,21 @@ class JoinProposal extends ParentClass {
     }
 
     public function rejectProposal($idteam, $idmember) {
-        // Update status menjadi 'rejected' alih-alih menghapus data
         $sql = "UPDATE join_proposal SET status = 'rejected' WHERE idteam = ? AND idmember = ?";
         $stmt = $this->mysqli->prepare($sql);
         $stmt->bind_param("ii", $idteam, $idmember);
         return $stmt->execute();
     }
+
+    public function addProposal($idteam,$idmember,$description){
+        $sql = "INSERT INTO join_proposal (idmember,idteam,descripton,status) 
+        VALUES (?,?,?,?)";
+        $stmt = $this->mysqli->prepare($sql);
+        $stmt->bind_param("iiss", $idmember, $idteam,$description,'waiting');
+        $stmt->execute();
+
+        return $stmt->insert_id;
+    }
+
 }
 ?>

@@ -49,13 +49,12 @@ if (!$teams) {
     <div class="main-content">
         <h1>Teams List</h1>
 
-        <!-- Tabel untuk menampilkan daftar tim dan game -->
         <table class="styled-table">
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>Team Name</th>
-                    <th>Game Name</th> <!-- Menampilkan nama game -->
+                    <th>Game Name</th> 
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -65,7 +64,7 @@ if (!$teams) {
                         <tr>
                             <td><?php echo htmlspecialchars($row['idteam']); ?></td>
                             <td><?php echo htmlspecialchars($row['team_name']); ?></td>
-                            <td><?php echo htmlspecialchars($row['game_name']); ?></td> <!-- Menampilkan nama game -->
+                            <td><?php echo htmlspecialchars($row['game_name']); ?></td> 
                             <td>
                                 <a href="team-edit.php?id=<?php echo $row['idteam']; ?>">Edit</a> |
                                 <a href="team-delete.php?id=<?php echo $row['idteam']; ?>" onclick="return confirm('Are you sure?')">Delete</a> |
