@@ -69,12 +69,12 @@ class JoinProposal extends ParentClass {
         return $stmt->execute();
     }
 
-    public function addProposal($idteam,$idmember,$description){
-        $sql = "INSERT INTO join_proposal (idmember,idteam,description,status) 
-        VALUES (?,?,?,?)";
+    public function addProposal($idteam, $idmember, $description) {
+        $sql = "INSERT INTO join_proposal (idmember, idteam, description, status) 
+                VALUES (?, ?, ?, ?)";
         $status = 'waiting';
         $stmt = $this->mysqli->prepare($sql);
-        $stmt->bind_param("iiss", $idmember, $idteam,$description,$status);
+        $stmt->bind_param("iiss", $idmember, $idteam, $description, $status);
         $stmt->execute();
         return $stmt->insert_id;
     }

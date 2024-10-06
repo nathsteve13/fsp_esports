@@ -28,8 +28,34 @@ $idteam = isset($_GET['idteam']) ? $_GET['idteam'] : 0;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $description = $_POST['description'];
-    $joinProposal->addProposal($idteam,$idmember,$description);
-    header("location: home.php");
+
+    // Cek apakah user sudah pernah mengajukan proposal sebelumnya ke tim ini dalam 6 jam terakhir
+    if (isset($_SESSION['proposal_time'][$idmember][$idteam])) {
+        $last_proposal_time = $_SESSION['proposal_time'][$idmember][$idteam];
+        $current_time = time();
+
+        // Cek apakah 6 jam (21600 detik) telah berlalu
+        if (($current_time - $last_proposal_time) < 21600) {
+            $remaining_time = 21600 - ($current_time - $last_proposal_time);
+            // Menghitung jam dan menit
+            $hours = floor($remaining_time / 3600); // Mengambil jumlah jam
+            $minutes = floor(($remaining_time % 3600) / 60); // Mengambil sisa menit dari detik yang tersisa
+    
+            $error_message = "Anda harus menunggu " . $hours . " jam " . $minutes . " menit lagi sebelum mengajukan proposal baru.";
+        } else {
+            // Jika sudah lebih dari 6 jam, simpan waktu proposal baru
+            $_SESSION['proposal_time'][$idmember][$idteam] = $current_time;
+            $joinProposal->addProposal($idteam, $idmember, $description);
+            header("location: home.php");
+            exit();
+        }
+    } else {
+        // Pertama kali mengajukan proposal, simpan waktu saat ini untuk kombinasi member dan tim
+        $_SESSION['proposal_time'][$idmember][$idteam] = time();
+        $joinProposal->addProposal($idteam, $idmember, $description);
+        header("location: home.php");
+        exit();
+    }
 }
 ?>
 
@@ -58,6 +84,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <div class="main-content">
             <form action="" method="post">
+                <?php if (isset($error_message)) { ?>
+                    <div class="error-message"><?php echo $error_message; ?></div>
+                <?php } ?>
                 <div class="form-group">
                     <label>Nama Team: </label>
                     <input type="text" name="namaTeam" value="<?php echo $namaTeam['name']?>" disabled>

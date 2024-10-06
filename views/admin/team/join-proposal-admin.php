@@ -107,7 +107,7 @@ if (isset($_GET['reject'])) {
                     <?php endwhile; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="5">No proposals available</td>
+                        <td colspan="6">No proposals available</td>
                     </tr>
                 <?php endif; ?>
             </tbody>
