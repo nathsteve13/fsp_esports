@@ -44,7 +44,6 @@ class JoinProposal extends ParentClass {
             $stmt->bind_param("ii", $idteam, $idmember);
             $stmt->execute();
         }
-    
         // Update status menjadi 'approved'
         $sql = "UPDATE join_proposal SET status = 'approved' WHERE idteam = ? AND idmember = ?";
         $stmt = $this->mysqli->prepare($sql);
@@ -71,14 +70,13 @@ class JoinProposal extends ParentClass {
     }
 
     public function addProposal($idteam,$idmember,$description){
-        $sql = "INSERT INTO join_proposal (idmember,idteam,descripton,status) 
+        $sql = "INSERT INTO join_proposal (idmember,idteam,description,status) 
         VALUES (?,?,?,?)";
+        $status = 'waiting';
         $stmt = $this->mysqli->prepare($sql);
-        $stmt->bind_param("iiss", $idmember, $idteam,$description,'waiting');
+        $stmt->bind_param("iiss", $idmember, $idteam,$description,$status);
         $stmt->execute();
-
         return $stmt->insert_id;
     }
-
 }
 ?>

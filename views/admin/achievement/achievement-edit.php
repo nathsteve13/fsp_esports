@@ -32,7 +32,6 @@ if (isset($_GET['id'])) {
 <body>
 
 <div class="dashboard-container">
-    <!-- Sidebar -->
     <div class="sidebar">
         <div class="logo">
             <img src="../../../public/images/logoubaya.png" alt="Logo">
@@ -46,7 +45,6 @@ if (isset($_GET['id'])) {
         </ul>
     </div>
 
-    <!-- Main Content -->
     <div class="main-content">
         <div class="form-container">
             <h1>Edit Achievement</h1>
