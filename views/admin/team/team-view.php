@@ -2,7 +2,6 @@
 require_once($_SERVER['DOCUMENT_ROOT'] . "/class/team.php");
 require_once("../../paging.php");
 
-
 $team = new Team();
 
 $no_hal = isset($_GET['page']) ? (int)$_GET['page'] : 1;
@@ -11,7 +10,7 @@ $offset = ($no_hal - 1) * $limit;
 
 $jumlahData = $team->countTeams();
 
-$teams = $team->getTeams($offset, $limit);
+$teams = $team->getTeamsAdmin($offset, $limit); // Mengambil teams dengan event dan achievement
 
 $pagination = generate_page($jumlahData, $limit, '', $no_hal);
 
@@ -55,6 +54,8 @@ if (!$teams) {
                     <th>ID</th>
                     <th>Team Name</th>
                     <th>Game Name</th> 
+                    <th>Events Participated</th> <!-- Kolom baru untuk Event -->
+                    <th>Achievements</th> <!-- Kolom baru untuk Achievement -->
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -64,7 +65,9 @@ if (!$teams) {
                         <tr>
                             <td><?php echo htmlspecialchars($row['idteam']); ?></td>
                             <td><?php echo htmlspecialchars($row['team_name']); ?></td>
-                            <td><?php echo htmlspecialchars($row['game_name']); ?></td> 
+                            <td><?php echo htmlspecialchars($row['game_name']); ?></td>
+                            <td><?php echo htmlspecialchars($row['events'] ?: 'None'); ?></td> <!-- Menampilkan Event -->
+                            <td><?php echo htmlspecialchars($row['achievements'] ?: 'None'); ?></td> <!-- Menampilkan Achievement -->
                             <td>
                                 <a href="team-edit.php?id=<?php echo $row['idteam']; ?>">Edit</a> |
                                 <a href="team-delete.php?id=<?php echo $row['idteam']; ?>" onclick="return confirm('Are you sure?')">Delete</a> |
@@ -75,13 +78,12 @@ if (!$teams) {
                     <?php endwhile; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="4">No teams available</td>
+                        <td colspan="6">No teams available</td>
                     </tr>
                 <?php endif; ?>
             </tbody>
         </table>
 
-        <!-- Pagination -->
         <div class="pagination">
             <?php echo $pagination; ?>
         </div>

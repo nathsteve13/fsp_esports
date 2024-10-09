@@ -15,6 +15,38 @@ class Team extends ParentClass
         $row = $result->fetch_assoc();
         return $row['total'];
     }
+
+    public function getTeamsAdmin($offset = 0, $limit = 0)
+{
+    $sql = "
+        SELECT 
+            team.idteam, 
+            team.name AS team_name, 
+            game.name AS game_name, 
+            GROUP_CONCAT(DISTINCT event.name ORDER BY event.name SEPARATOR ', ') AS events, 
+            GROUP_CONCAT(DISTINCT achievement.name ORDER BY achievement.name SEPARATOR ', ') AS achievements
+            FROM team
+            JOIN game ON team.idgame = game.idgame
+            LEFT JOIN event_teams ON team.idteam = event_teams.idteam 
+            LEFT JOIN event ON event_teams.idevent = event.idevent    
+            LEFT JOIN achievement ON achievement.idteam = team.idteam  
+            GROUP BY team.idteam"; 
+
+        if ($limit > 0) {
+            $sql .= " LIMIT ?, ?";
+            $stmt = $this->mysqli->prepare($sql);
+            $stmt->bind_param('ii', $offset, $limit);
+        } else {
+            $stmt = $this->mysqli->prepare($sql);
+        }
+
+        if (!$stmt) {
+            die("Prepare statement failed: " . $this->mysqli->error);
+        }
+
+        $stmt->execute();
+        return $stmt->get_result();
+    }
     public function getTeams($offset = 0, $limit = 0)
     {
         $sql = "SELECT team.idteam, team.name AS team_name, game.name AS game_name 
