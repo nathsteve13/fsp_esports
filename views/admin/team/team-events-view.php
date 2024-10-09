@@ -89,7 +89,7 @@ if (!$events) {
             <?php echo $pagination; ?>
         </div>
 
-        <a href="team-events-add.php?idteam=<?php echo $idteam; ?>" class="add-button">Add Achievement</a>
+        <a href="team-events-add.php?idteam=<?php echo $idteam; ?>" class="add-button">Add Event</a>
         <a href="team-view.php" class="back-button">Back to Teams</a>
     </div>
 </div>

@@ -47,9 +47,7 @@
                     <button type="submit" class="submit-button">Add Game</button>
                 </div>
             </form>
-
             <a href="game-view.php" class="back-button">View Games</a>
-            <a href="../achievement/achievement-view.php" class="back-button">View Achievements</a>
         </div>
     </div>
 </div>

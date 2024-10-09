@@ -9,7 +9,7 @@ $eventTeams = new EventTeams();
 $total_events = $event->getTotalEvents();
 
 $no_hal = (isset($_GET["page"])) ? $_GET["page"] : 1;
-$LIMIT = 3;
+$LIMIT = 10;
 $offset = ($no_hal - 1) * $LIMIT;
 
 $events = $event->getEvents($offset, $LIMIT);

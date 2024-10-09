@@ -61,6 +61,7 @@
                     <input type="submit" value="Add Team" class="submit-button">
                 </div>
             </form>
+            <a href="team-view.php" class="back-button">View Teams</a>
         </div>
     </div>
 </div>

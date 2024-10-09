@@ -76,7 +76,7 @@ $totalData = $achievement->countAchievements();
         <div class="pagination">
             <?php echo generate_page($totalData, $limit, '', $no_hal); ?>
         </div>
-
+        <a href="achievement-add.php" class="add-button">Add New Achievement</a>
     </div>
 </div>
 

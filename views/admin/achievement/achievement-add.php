@@ -87,6 +87,7 @@ $teams = $achievement->getTeams();
                     <input type="submit" value="Add Achievement" class="submit-button">
                 </div>
             </form>
+            <a href="achievement-view.php" class="back-button">View Achievements</a>
         </div>
     </div>
 </div>
