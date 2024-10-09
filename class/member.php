@@ -64,16 +64,33 @@ class Member extends ParentClass {
     public function addMember($fname, $lname, $username, $plain_pass) {
         $hashed_pass = password_hash($plain_pass, PASSWORD_DEFAULT);
         $profile = "member";
-
+    
+        $check_sql = "SELECT COUNT(*) FROM member WHERE username = ?";
+        $check_stmt = $this->mysqli->prepare($check_sql);
+        
+        if (!$check_stmt) {
+            die("Prepare statement failed: " . $this->mysqli->error);
+        }
+    
+        $check_stmt->bind_param("s", $username);
+        $check_stmt->execute();
+        $check_stmt->bind_result($count);
+        $check_stmt->fetch();
+        $check_stmt->close();
+    
+        if ($count > 0) {
+            return false; 
+        }
+    
         $sql = "INSERT INTO member (fname, lname, username, password, profile) VALUES (?, ?, ?, ?, ?)";
         $stmt = $this->mysqli->prepare($sql);
         
         if (!$stmt) {
             die("Prepare statement failed: " . $this->mysqli->error);
         }
-
+    
         $stmt->bind_param("sssss", $fname, $lname, $username, $hashed_pass, $profile);
-
+    
         if ($stmt->execute()) {
             if ($stmt->affected_rows > 0) {
                 return $stmt->insert_id;  
@@ -84,6 +101,7 @@ class Member extends ParentClass {
             die("Execute failed: " . $stmt->error);
         }
     }
+    
 
     public function updateProfile($member_id) {
         $profile = "admin";

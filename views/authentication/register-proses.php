@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($is_registered) {
             header("Location: register.php?success=1");
         } else {
-            header("Location: register.php?error=" . urlencode("Failed to register the user. Please try again."));
+            header("Location: register.php?error=" . urlencode("Failed to register the user. Change Username or Password."));
         }
     } else {
         $error_message = implode(" ", $errors);
