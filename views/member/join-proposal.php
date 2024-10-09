@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             <ul class="nav-links">
                 <li><a href="home.php">Home</a></li>
-                <li><a href="join-proposal.php">join-proposal</a></li>
+                <li><a href="join-proposal-view.php">Join Proposal</a></li>
             </ul>
         </div>
 
@@ -100,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <textarea name="description" rows="4" required></textarea>
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="AddProposal" class="submit-button">
+                    <input type="submit" value="New Proposal" class="submit-button">
                 </div>
             </form>
         </div>

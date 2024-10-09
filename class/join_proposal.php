@@ -7,6 +7,37 @@ class JoinProposal extends ParentClass {
         parent::__construct();
     }
 
+    public function getProposalsByMember($idmember, $limit, $offset) {
+        $sql = "SELECT jp.idteam, t.name AS team_name, jp.description, jp.status 
+                FROM join_proposal jp
+                JOIN team t ON jp.idteam = t.idteam
+                WHERE jp.idmember = ? 
+                LIMIT ? OFFSET ?";
+        $stmt = $this->mysqli->prepare($sql);
+        
+        if (!$stmt) {
+            die("Prepare statement failed: " . $this->mysqli->error);
+        }
+    
+        $stmt->bind_param("iii", $idmember, $limit, $offset);
+        $stmt->execute();
+        return $stmt->get_result();
+    }
+
+    public function countProposalsByMember($idmember) {
+        $sql = "SELECT COUNT(*) AS total FROM join_proposal WHERE idmember = ?";
+        $stmt = $this->mysqli->prepare($sql);
+        
+        if (!$stmt) {
+            die("Prepare statement failed: " . $this->mysqli->error);
+        }
+    
+        $stmt->bind_param("i", $idmember);
+        $stmt->execute();
+        $stmt->bind_result($total);
+        $stmt->fetch();
+        return $total;
+    }
     public function countProposalsByTeam($idteam) {
         $sql = "SELECT COUNT(*) AS total FROM join_proposal WHERE idteam = ? AND status = 'waiting'";
         $stmt = $this->mysqli->prepare($sql);
