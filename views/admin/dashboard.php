@@ -58,6 +58,9 @@ $total_achievements = $achievement->countAchievements();
                 <li><a href="member/member-view.php">Members</a></li>
                 <li><a href="achievement/achievement-view.php">Achievement</a></li>
             </ul>
+            <ul class="nav-links">
+                <li><a href="../../logout.php" class="logout-button">Logout</a></li>
+            </ul>
         </div>
 
         <div class="main-content">

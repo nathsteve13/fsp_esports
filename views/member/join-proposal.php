@@ -80,6 +80,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <li><a href="home.php">Home</a></li>
                 <li><a href="join-proposal-view.php">Join Proposal</a></li>
             </ul>
+            <ul class="nav-links">
+                <li><a href="../../logout.php" class="logout-button">Logout</a></li>
+            </ul>
         </div>
 
         <div class="main-content">
