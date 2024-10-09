@@ -10,7 +10,7 @@ $offset = ($no_hal - 1) * $limit;
 
 $jumlahData = $team->countTeams();
 
-$teams = $team->getTeamsAdmin($offset, $limit); // Mengambil teams dengan event dan achievement
+$teams = $team->getTeams($offset, $limit);
 
 $pagination = generate_page($jumlahData, $limit, '', $no_hal);
 
@@ -41,7 +41,7 @@ if (!$teams) {
             <li><a href="../game/game-view.php">Games</a></li>
             <li><a href="../team/team-view.php">Teams</a></li>
             <li><a href="../member/member-view.php">Members</a></li>
-            <li><a href="../achievement/achievement-view.php">Achievement</a></li>
+            <li><a href="../achievement/achievement-view.php">Achievements</a></li>
         </ul>
     </div>
 
@@ -53,10 +53,8 @@ if (!$teams) {
                 <tr>
                     <th>ID</th>
                     <th>Team Name</th>
-                    <th>Game Name</th> 
-                    <th>Events Participated</th> <!-- Kolom baru untuk Event -->
-                    <th>Achievements</th> <!-- Kolom baru untuk Achievement -->
-                    <th>Actions</th>
+                    <th>Game Name</th>
+                    <th>Actions</th> 
                 </tr>
             </thead>
             <tbody>
@@ -66,19 +64,19 @@ if (!$teams) {
                             <td><?php echo htmlspecialchars($row['idteam']); ?></td>
                             <td><?php echo htmlspecialchars($row['team_name']); ?></td>
                             <td><?php echo htmlspecialchars($row['game_name']); ?></td>
-                            <td><?php echo htmlspecialchars($row['events'] ?: 'None'); ?></td> <!-- Menampilkan Event -->
-                            <td><?php echo htmlspecialchars($row['achievements'] ?: 'None'); ?></td> <!-- Menampilkan Achievement -->
                             <td>
                                 <a href="team-edit.php?id=<?php echo $row['idteam']; ?>">Edit</a> |
                                 <a href="team-delete.php?id=<?php echo $row['idteam']; ?>" onclick="return confirm('Are you sure?')">Delete</a> |
-                                <a href="team-member-view.php?id=<?php echo $row['idteam']; ?>">View Members</a> |
+                                <a href="team-member-view.php?id=<?php echo $row['idteam']; ?>">Members</a> |
+                                <a href="team-achievement-view.php?idteam=<?php echo $row['idteam']; ?>">Achievements</a> |
+                                <a href="team-events-view.php?idteam=<?php echo $row['idteam']; ?>">Events</a> |
                                 <a href="join-proposal-admin.php?idteam=<?php echo $row['idteam']; ?>">Join Proposal</a>
                             </td>
                         </tr>
                     <?php endwhile; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="6">No teams available</td>
+                        <td colspan="4">No teams available</td>
                     </tr>
                 <?php endif; ?>
             </tbody>

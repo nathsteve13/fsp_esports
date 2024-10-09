@@ -45,6 +45,19 @@ class Event extends ParentClass {
         return $stmt->get_result();
     }
 
+    public function getAvailableEvents() {
+        $sql = "SELECT idevent, name, date FROM event ORDER BY date DESC";
+        $stmt = $this->mysqli->prepare($sql);
+        
+        if (!$stmt) {
+            die("Prepare statement failed: " . $this->mysqli->error);
+        }
+    
+        $stmt->execute();
+        return $stmt->get_result();
+    }
+    
+
     public function getEventById($idevent) {
         $sql = "SELECT * FROM event WHERE idevent = ?";
         $stmt = $this->mysqli->prepare($sql);

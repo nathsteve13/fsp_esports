@@ -11,6 +11,6 @@ $description = $_POST['description'];
 
 $achievement->addAchievement($idteam, $name, $date, $description);
 
-header("Location: achievement-view.php?hasil=1");
-
+header("Location: ../team/team-achievement-view.php?idteam=$idteam&hasil=1");
+exit();  
 ?>

@@ -1,3 +1,18 @@
+<?php
+require_once($_SERVER['DOCUMENT_ROOT'] . "/class/achievement.php");
+
+$achievement = new Achievement();
+
+$idteam = isset($_GET['idteam']) ? $_GET['idteam'] : null;
+
+if (!$idteam) {
+    die("Team ID is required.");
+}
+
+$teams = $achievement->getTeams();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,7 +35,7 @@
             <li><a href="../game/game-view.php">Games</a></li>
             <li><a href="../team/team-view.php">Teams</a></li>
             <li><a href="../member/member-view.php">Members</a></li>
-            <li><a href="../achievement/achievement-view.php">Achievements</a></li>
+            <li><a href="../achievement/achievement-view.php">Achievement</a></li>
         </ul>
     </div>
 
@@ -33,16 +48,21 @@
             <?php endif; ?>
 
             <form action="achievement-add-proses.php" method="POST">
+                <input type="hidden" name="idteam" value="<?php echo htmlspecialchars($idteam); ?>">
+
                 <div class="form-group">
                     <label for="idteam">Team Name:</label>
-                    <select name="idteam" id="idteam" required>
-                        <option value="" disabled selected>Select a Team</option>
+                    <select name="idteam" id="idteam" required disabled>
+                        <option value="" disabled>Select a Team</option>
                         <?php
                         require_once($_SERVER['DOCUMENT_ROOT'] . "/class/achievement.php");
                         $achievement = new Achievement();
                         $teams = $achievement->getTeams();
+                        $selected_team = isset($_GET['idteam']) ? $_GET['idteam'] : null;  
+
                         while ($row = $teams->fetch_assoc()) {
-                            echo "<option value='" . $row['idteam'] . "'>" . $row['name'] . "</option>";
+                            $selected = ($row['idteam'] == $selected_team) ? 'selected' : '';
+                            echo "<option value='" . $row['idteam'] . "' $selected>" . htmlspecialchars($row['name']) . "</option>";
                         }
                         ?>
                     </select>

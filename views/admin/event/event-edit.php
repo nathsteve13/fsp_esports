@@ -21,17 +21,10 @@ if (isset($_GET['id'])) {
         $name = $_POST['name'];
         $date = $_POST['date'];
         $description = $_POST['description'];
-        $selected_teams = isset($_POST['teams']) ? $_POST['teams'] : []; 
 
-        $is_updated = $event->editEvent($id, $name, $date, $description);
+        $is_updated = $event->editEvent($id, $name, $date, $description); 
 
         if ($is_updated) {
-            $eventTeams->deleteTeamsFromEvent($id); 
-
-            foreach ($selected_teams as $team_id) {
-                $eventTeams->addTeamToEvent($id, $team_id);
-            }
-
             header("Location: event-view.php?success=1");
             exit();
         } else {
@@ -65,7 +58,7 @@ $teams = $team->getAllTeams();
             <li><a href="../game/game-view.php">Games</a></li>
             <li><a href="../team/team-view.php">Teams</a></li>
             <li><a href="../member/member-view.php">Members</a></li>
-            <li><a href="../achievement/achievement-view.php">Achievements</a></li>
+            <li><a href="../achievement/achievement-view.php">Achievement</a></li>
         </ul>
     </div>
 
@@ -76,7 +69,7 @@ $teams = $team->getAllTeams();
             <form action="event-edit.php?id=<?php echo $id; ?>" method="POST">
                 <div class="form-group">
                     <label for="name">Event Name:</label>
-                    <input type="text" name="name" id="name" value="<?php echo htmlspecialchars($current_event['name']); ?>" required>
+                    <input type="text" name="name" id="name" value="<?php echo htmlspecialchars($current_event['name']); ?>" required >
                 </div>
 
                 <div class="form-group">
@@ -90,11 +83,11 @@ $teams = $team->getAllTeams();
                 </div>
 
                 <div class="form-group">
-                    <label for="teams">Select Teams Participating:</label><br>
+                    <label for="teams">Teams Participating (Already Set):</label><br>
                     <?php if ($teams->num_rows > 0): ?>
                         <?php while ($team_row = $teams->fetch_assoc()): ?>
                             <input type="checkbox" name="teams[]" value="<?php echo $team_row['idteam']; ?>" 
-                                <?php echo in_array($team_row['idteam'], $participating_teams) ? 'checked' : ''; ?>>
+                                <?php echo in_array($team_row['idteam'], $participating_teams) ? 'checked' : 'disabled'; ?>> <!-- Disabled agar tidak bisa diubah -->
                             <?php echo htmlspecialchars($team_row['name']); ?><br>
                         <?php endwhile; ?>
                     <?php else: ?>
