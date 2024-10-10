@@ -31,6 +31,7 @@
     </form>
 
     <p class="register-link">Don't have an account? <a href="register.php">Register now!</a></p>
+    <a href="../../index.php" class="back-button">Back</a>
 </div>
 
 </body>

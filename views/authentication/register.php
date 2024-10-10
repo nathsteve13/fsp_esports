@@ -49,6 +49,7 @@
             <button type="submit" class="register-button">Register</button>
         </div>
     </form>
+    <a href="../../index.php" class="back-button">Back</a>
 </div>
 
 </body>
