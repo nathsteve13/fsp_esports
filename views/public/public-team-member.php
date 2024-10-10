@@ -1,7 +1,8 @@
-<?php
+<?php 
+
 require_once($_SERVER['DOCUMENT_ROOT'] . "/class/team_members.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/class/team.php"); 
-require_once("../../paging.php");
+require_once("../paging.php");
 
 $teamMembers = new TeamMembers();
 $team = new Team(); 
@@ -9,17 +10,6 @@ $team = new Team();
 $limit = 10;
 $no_hal = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($no_hal - 1) * $limit;
-
-if (isset($_GET['idmember']) && isset($_GET['idteam'])) {
-    $idteam = $_GET['idteam'];
-    $idmember = $_GET['idmember'];
-
-    if ($teamMembers->deleteMemberFromTeam($idteam, $idmember)) {
-        echo "<p style='color: green;'>Member has been successfully removed from the team.</p>";
-    } else {
-        echo "<p style='color: red;'>Failed to remove member from the team.</p>";
-    }
-}
 
 if (isset($_GET['id'])) {
     $idteam = $_GET['id'];
@@ -29,7 +19,7 @@ if (isset($_GET['id'])) {
     $teamData = $team->getTeamById($idteam);
     $team_name = $teamData['name']; 
 } else {
-    header("Location: team-view.php");
+    header("Location: ../index.php");
     exit();
 }
 ?>
@@ -39,26 +29,28 @@ if (isset($_GET['id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Team Members - <?php echo htmlspecialchars($team_name); ?></title>
-    <link rel="stylesheet" href="../../../public/css/style-admin.css"> 
+    <title>Team Member</title>
+    <link rel="stylesheet" href="../../public/css/style-admin.css"> 
 </head>
 <body>
-
 <div class="dashboard-container">
-    <div class="sidebar">
-        <div class="logo">
-            <a href="../dashboard.php"><img src="../../../public/images/logoubaya.png" alt="Logo"></a>
-        </div>
-        <ul class="nav-links">
-            <li><a href="../event/event-view.php">Events</a></li>
-            <li><a href="../game/game-view.php">Games</a></li>
-            <li><a href="../team/team-view.php">Teams</a></li>
-            <li><a href="../member/member-view.php">Members</a></li>
-            <li><a href="../achievement/achievement-view.php">Achievement</a></li>
-        </ul>
-    </div>
+        <div class="sidebar">
+            <div class="logo">
+                <a href="index.php"><img src="../../public/images/logoubaya.png" alt="Logo"></a>
+            </div>
 
-    <div class="main-content">
+            <ul class="nav-links">
+                <li><a href="../../index.php">Team</a></li>
+                <li><a href="public-game-view.php">Game</a></li>
+            </ul>
+
+            <ul class="nav-links">
+                <li><a href="../authentication/login.php">Login</a></li>
+                <li><a href="../authentication/register.php">Register</a></li>
+            </ul>
+        </div>
+
+        <div class="main-content">
         <h1>Team Members - <?php echo htmlspecialchars($team_name); ?></h1>
 
         <table class="styled-table">
@@ -68,7 +60,6 @@ if (isset($_GET['id'])) {
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Username</th>
-                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -79,9 +70,7 @@ if (isset($_GET['id'])) {
                             <td><?php echo htmlspecialchars($row['fname']); ?></td>
                             <td><?php echo htmlspecialchars($row['lname']); ?></td>
                             <td><?php echo htmlspecialchars($row['username']); ?></td>
-                            <td>
-                                <a href="team-member-view.php?id=<?php echo $idteam; ?>&idmember=<?php echo $row['idmember']; ?>&idteam=<?php echo $idteam; ?>" onclick="return confirm('Are you sure you want to remove this member from the team?')">Delete</a>
-                            </td>
+                            
                         </tr>
                     <?php endwhile; ?>
                 <?php else: ?>
@@ -96,9 +85,6 @@ if (isset($_GET['id'])) {
             <?php echo generate_page($total_members, $limit, "", $no_hal); ?>
         </div>
 
-        <a href="team-view.php" class="back-button">Back to Teams</a>
-    </div>
-</div>
-
+        <a href="../../index.php" class="back-button">Back to Teams</a>
 </body>
 </html>

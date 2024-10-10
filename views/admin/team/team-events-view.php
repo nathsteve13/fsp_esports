@@ -53,36 +53,36 @@ if (!$events) {
         <h1>Events for Team ID: <?php echo htmlspecialchars($idteam); ?></h1>
 
         <table class="styled-table">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Event Name</th>
-            <th>Date</th>
-            <th>Description</th>
-            <th>Actions</th> <!-- Tambahkan kolom aksi -->
-        </tr>
-    </thead>
-    <tbody>
-        <?php if ($events->num_rows > 0): ?>
-            <?php while ($row = $events->fetch_assoc()): ?>
+            <thead>
                 <tr>
-                    <td><?php echo htmlspecialchars($row['idevent']); ?></td>
-                    <td><?php echo htmlspecialchars($row['event_name']); ?></td>
-                    <td><?php echo htmlspecialchars($row['date']); ?></td>
-                    <td><?php echo htmlspecialchars($row['description']); ?></td>
-                    <td>
-                        <a href="team-events-delete.php?idteam=<?php echo $idteam; ?>&idevent=<?php echo $row['idevent']; ?>" 
-                           onclick="return confirm('Are you sure you want to remove this event from the team?')">Delete</a>
-                    </td>
+                    <th>ID</th>
+                    <th>Event Name</th>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Actions</th> 
                 </tr>
-            <?php endwhile; ?>
-        <?php else: ?>
-            <tr>
-                <td colspan="5">No events available for this team.</td>
-            </tr>
-        <?php endif; ?>
-    </tbody>
-</table>
+            </thead>
+            <tbody>
+                <?php if ($events->num_rows > 0): ?>
+                    <?php while ($row = $events->fetch_assoc()): ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($row['idevent']); ?></td>
+                            <td><?php echo htmlspecialchars($row['event_name']); ?></td>
+                            <td><?php echo htmlspecialchars($row['date']); ?></td>
+                            <td><?php echo htmlspecialchars($row['description']); ?></td>
+                            <td>
+                                <a href="team-events-delete.php?idteam=<?php echo $idteam; ?>&idevent=<?php echo $row['idevent']; ?>" 
+                                onclick="return confirm('Are you sure you want to remove this event from the team?')">Delete</a>
+                            </td>
+                        </tr>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="5">No events available for this team.</td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
 
 
         <div class="pagination">
