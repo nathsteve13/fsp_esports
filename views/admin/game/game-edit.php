@@ -38,43 +38,43 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <body>
 
-<div class="dashboard-container">
-    <div class="sidebar">
-        <div class="logo">
-            <img src="../../../public/images/logoubaya.png" alt="Logo">
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <div class="logo">
+                <a href="dashboard.php"><img src="../../../public/images/logoubaya.png" alt="Logo"></a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../event/event-view.php">Events</a></li>
+                <li><a href="../game/game-view.php">Games</a></li>
+                <li><a href="../team/team-view.php">Teams</a></li>
+                <li><a href="../member/member-view.php">Members</a></li>
+                <li><a href="../achievement/achievement-view.php">Achievement</a></li>
+
+            </ul>
         </div>
-        <ul class="nav-links">
-            <li><a href="../event/event-view.php">Events</a></li>
-            <li><a href="../game/game-view.php">Games</a></li>
-            <li><a href="../team/team-view.php">Teams</a></li>
-            <li><a href="../member/member-view.php">Members</a></li>
-            <li><a href="../achievement/achievement-view.php">Achievement</a></li>
 
-        </ul>
-    </div>
+        <div class="main-content">
+            <div class="form-container">
+                <h1>Edit Game</h1>
 
-    <div class="main-content">
-        <div class="form-container">
-            <h1>Edit Game</h1>
+                <form action="game-edit.php?id=<?php echo $id; ?>" method="POST">
+                    <div class="form-group">
+                        <label for="name">Game Name:</label>
+                        <input type="text" name="name" id="name" value="<?php echo htmlspecialchars($current_game['name']); ?>" required>
+                    </div>
 
-            <form action="game-edit.php?id=<?php echo $id; ?>" method="POST">
-                <div class="form-group">
-                    <label for="name">Game Name:</label>
-                    <input type="text" name="name" id="name" value="<?php echo htmlspecialchars($current_game['name']); ?>" required>
-                </div>
+                    <div class="form-group">
+                        <label for="description">Description:</label>
+                        <textarea name="description" id="description" rows="4" required><?php echo htmlspecialchars($current_game['description']); ?></textarea>
+                    </div>
 
-                <div class="form-group">
-                    <label for="description">Description:</label>
-                    <textarea name="description" id="description" rows="4" required><?php echo htmlspecialchars($current_game['description']); ?></textarea>
-                </div>
-
-                <div class="form-group">
-                    <button type="submit" class="submit-button">Update Game</button>
-                </div>
-            </form>
+                    <div class="form-group">
+                        <button type="submit" class="submit-button">Update Game</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 
 </body>
 

@@ -28,7 +28,7 @@ $teams = $achievement->getTeams();
 <div class="dashboard-container">
     <div class="sidebar">
         <div class="logo">
-            <img src="../../../public/images/logoubaya.png" alt="Logo">
+            <a href="dashboard.php"><img src="../../../public/images/logoubaya.png" alt="Logo"></a>
         </div>
         <ul class="nav-links">
             <li><a href="../event/event-view.php">Events</a></li>
@@ -87,7 +87,7 @@ $teams = $achievement->getTeams();
                     <input type="submit" value="Add Achievement" class="submit-button">
                 </div>
             </form>
-            <a href="achievement-view.php" class="back-button">View Achievements</a>
+            <a href="team-achievement-view.php" class="back-button">View Achievements</a>
         </div>
     </div>
 </div>
