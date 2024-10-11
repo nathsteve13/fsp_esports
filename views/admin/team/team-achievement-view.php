@@ -71,13 +71,14 @@ if (!$achievements) {
                                 <td><?php echo htmlspecialchars($row['date']); ?></td>
                                 <td><?php echo htmlspecialchars($row['description']); ?></td>
                                 <td>
-                                    <a href="../../achievement/achievement-edit.php?id=<?php echo htmlspecialchars($row['idachievement']); ?>" class="edit-button">Edit</a> 
+                                    <a href="../achievement/achievement-edit.php?id=<?php echo htmlspecialchars($row['idachievement']); ?>" class="edit-button">Edit</a> |
+                                    <a href="../achievement/achievement-delete.php?id=<?php echo htmlspecialchars($row['idachievement']); ?>" class="delete-button" onclick="return confirm('Are you sure?')">Delete</a> 
                                 </td>
                             </tr>
                         <?php endwhile; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="4">No achievements available for this team.</td>
+                            <td colspan="5">No achievements available for this team.</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>
