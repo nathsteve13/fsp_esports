@@ -15,12 +15,10 @@ function generate_pageT($total_data, $limit, $idteam, $current_page) {
     $total_pages = ceil($total_data / $limit);
     $pagination = '';
 
-    // Loop through pages and create pagination links
     for ($i = 1; $i <= $total_pages; $i++) {
         if ($i == $current_page) {
-            $pagination .= "<span>$i</span> "; // Current page
+            $pagination .= "<span>$i</span> ";
         } else {
-            // Include idteam in the URL
             $pagination .= "<a href=\"?page=$i&idteam=$idteam\">$i</a> ";
         }
     }
