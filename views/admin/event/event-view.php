@@ -30,7 +30,7 @@ $events = $event->getEvents($offset, $LIMIT);
     <div class="dashboard-container">
         <div class="sidebar">
             <div class="logo">
-                <a href="dashboard.php"><img src="../../../public/images/logoubaya.png" alt="Logo"></a>
+                <a href="../dashboard.php"><img src="../../../public/images/logoubaya.png" alt="Logo"></a>
             </div>
             <ul class="nav-links">
                 <li><a href="../event/event-view.php">Events</a></li>

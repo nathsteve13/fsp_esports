@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="dashboard-container">
         <div class="sidebar">
             <div class="logo">
-                <img src="../../../public/images/logoubaya.png" alt="Logo">
+            <a href="home.php"><img src="../../../public/images/logoubaya.png" alt="Logo"></a>
             </div>
             <ul class="nav-links">
                 <li><a href="home.php">Home</a></li>

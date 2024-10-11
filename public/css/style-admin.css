@@ -19,13 +19,13 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: auto;
 }
 
 .sidebar .logo img {
     width: 150px;
     margin-bottom: 20px;
 }
-
 .sidebar .user-info {
     margin-bottom: 30px;
 }
