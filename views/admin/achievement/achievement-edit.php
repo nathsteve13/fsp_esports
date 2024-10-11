@@ -81,6 +81,7 @@ if (isset($_GET['id'])) {
                         <input type="submit" value="Update Achievement" class="submit-button">
                     </div>
                 </form>
+                <a href="achievement-view.php" class="back-button">View Achievement</a>
             </div>
         </div>
     </div>

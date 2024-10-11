@@ -78,6 +78,7 @@ $events = $event->getAvailableEvents();
                         <button type="submit" class="submit-button">Add Team to Event</button>
                     </div>
                 </form>
+                <a href="team-events-view.php?idteam=<?php echo $idteam; ?>" class="back-button">Back to Teams</a>
             </div>
         </div>
     </div>

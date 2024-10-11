@@ -99,6 +99,7 @@ $teams = $team->getAllTeams();
                         <button type="submit" class="submit-button">Update Event</button>
                     </div>
                 </form>
+                <a href="event-view.php" class="back-button">View Events</a>
             </div>
         </div>
     </div>

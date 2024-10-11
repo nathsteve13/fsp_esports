@@ -72,6 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <button type="submit" class="submit-button">Update Game</button>
                     </div>
                 </form>
+                <a href="game-view.php" class="back-button">View Games</a>
             </div>
         </div>
     </div>

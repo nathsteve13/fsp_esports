@@ -68,7 +68,7 @@ if (!$teams) {
                                 <a href="team-edit.php?id=<?php echo $row['idteam']; ?>">Edit</a> |
                                 <a href="team-delete.php?id=<?php echo $row['idteam']; ?>" onclick="return confirm('Are you sure?')">Delete</a> |
                                 <a href="team-member-view.php?id=<?php echo $row['idteam']; ?>">Members</a> |
-                                <a href="team-achievement-view.php?idteam=<?php echo $row['idteam']; ?>">Achievements</a> |
+                                <a href="team-achievement-view.php?idteam=<?php echo $row['idteam']; ?>">Achievement</a> |
                                 <a href="team-events-view.php?idteam=<?php echo $row['idteam']; ?>">Events</a> |
                                 <a href="join-proposal-admin.php?idteam=<?php echo $row['idteam']; ?>">Join Proposal</a>
                             </td>

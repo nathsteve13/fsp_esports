@@ -76,9 +76,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="form-group">
                 <button type="submit" class="submit-button">Update Team</button>
             </div>
+            <a href="team-view.php" class="back-button">Back to Teams</a>
         </form>
-
-        <a href="team-view.php" class="back-button">Back to Teams</a>
     </div>
 </div>
 
