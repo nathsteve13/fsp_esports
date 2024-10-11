@@ -16,38 +16,40 @@ class Team extends ParentClass
         return $row['total'];
     }
 
-    public function getEventsByTeam($idteam, $offset = 0, $limit = 10) {
+    public function getEventsByTeam($idteam, $offset = 0, $limit = 10)
+    {
         $sql = "
             SELECT event.idevent, event.name AS event_name, event.date, event.description
             FROM event
             JOIN event_teams ON event.idevent = event_teams.idevent
             WHERE event_teams.idteam = ?
             LIMIT ?, ?";
-        
+
         $stmt = $this->mysqli->prepare($sql);
-        
+
         if (!$stmt) {
             die("Prepare statement failed: " . $this->mysqli->error);
         }
-    
+
         $stmt->bind_param("iii", $idteam, $offset, $limit);
         $stmt->execute();
         return $stmt->get_result();
     }
-    
-    public function countEventsByTeam($idteam) {
+
+    public function countEventsByTeam($idteam)
+    {
         $sql = "
             SELECT COUNT(*) as total
             FROM event
             JOIN event_teams ON event.idevent = event_teams.idevent
             WHERE event_teams.idteam = ?";
-    
+
         $stmt = $this->mysqli->prepare($sql);
-        
+
         if (!$stmt) {
             die("Prepare statement failed: " . $this->mysqli->error);
         }
-    
+
         $stmt->bind_param("i", $idteam);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -55,11 +57,12 @@ class Team extends ParentClass
         return $row['total'];
     }
 
-    public function getAchievementsByTeam($idteam, $offset = 0, $limit = 0) {
+    public function getAchievementsByTeam($idteam, $offset = 0, $limit = 0)
+    {
         $sql = "SELECT a.idachievement, a.name, a.date, a.description FROM team as t
             JOIN achievement as a ON t.idteam = a.idteam
             WHERE t.idteam = ?";
-    
+
         if ($limit > 0) {
             $sql .= " LIMIT ?, ?";
             $stmt = $this->mysqli->prepare($sql);
@@ -68,37 +71,52 @@ class Team extends ParentClass
             $stmt = $this->mysqli->prepare($sql);
             $stmt->bind_param('i', $idteam);
         }
-    
+
         if (!$stmt) {
             die("Prepare statement failed: " . $this->mysqli->error);
         }
-    
+
         $stmt->execute();
         return $stmt->get_result();
     }
-    
-    public function countAchievementsByTeam($idteam) {
+
+    public function countAchievementsByTeam($idteam)
+    {
         $sql = "SELECT COUNT(*) as total FROM achievement WHERE idteam = ?";
         $stmt = $this->mysqli->prepare($sql);
-    
+
         if (!$stmt) {
             die("Prepare statement failed: " . $this->mysqli->error);
         }
-    
+
         $stmt->bind_param('i', $idteam);
         $stmt->execute();
         $result = $stmt->get_result();
         $row = $result->fetch_assoc();
-    
+
         return $row['total'];
     }
-    
-    
+    public function getTeamsByGameId($idgame)
+    {
+        $sql = "SELECT idteam, name 
+                FROM team 
+                WHERE idgame = ?";
+        $stmt = $this->mysqli->prepare($sql);
+
+        if (!$stmt) {
+            die("Prepare statement failed: " . $this->mysqli->error);
+        }
+
+        $stmt->bind_param("i", $idgame);
+        $stmt->execute();
+        return $stmt->get_result();
+    }
+
     public function getTeams($offset = 0, $limit = 0)
     {
         $sql = "SELECT team.idteam, team.name AS team_name, game.name AS game_name 
             FROM team 
-            JOIN game ON team.idgame = game.idgame" ;
+            JOIN game ON team.idgame = game.idgame";
 
         if ($limit > 0) {
             $sql .= " LIMIT ?, ?";
@@ -174,18 +192,19 @@ class Team extends ParentClass
         return $stmt->execute();
     }
 
-    public function removeEventFromTeam($idteam, $idevent) {
+    public function removeEventFromTeam($idteam, $idevent)
+    {
         $sql = "DELETE FROM event_teams WHERE idteam = ? AND idevent = ?";
         $stmt = $this->mysqli->prepare($sql);
         $stmt->bind_param("ii", $idteam, $idevent);
-    
+
         if ($stmt->execute()) {
             return true;
         } else {
             return false;
         }
     }
-    
+
 
     public function deleteTeam($idteam)
     {
