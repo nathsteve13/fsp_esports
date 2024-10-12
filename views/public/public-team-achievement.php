@@ -17,7 +17,7 @@ if (!$idteam) {
 
 $jumlahData = $team->countAchievementsByTeam($idteam);  
 $achievements = $team->getAchievementsByTeam($idteam,$offset, $limit); 
-$pagination = generate_page($jumlahData, $limit, '', $no_hal);
+$pagination = generate_pageT($jumlahData, $limit, $idteam, $no_hal);
 
 if (!$achievements) {
     die("Failed to load achievements data.");

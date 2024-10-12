@@ -16,7 +16,7 @@ if (!$idteam) {
 
 $jumlahData = $team->countEventsByTeam($idteam);  
 $events = $team->getEventsByTeam($idteam, $offset, $limit);  
-$pagination = generate_page($jumlahData, $limit, '', $no_hal);
+$pagination = generate_pageT($jumlahData, $limit, $idteam, $no_hal);
 
 if (!$events) {
     die("Failed to load events data.");
