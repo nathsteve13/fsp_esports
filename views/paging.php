@@ -13,14 +13,16 @@ function generate_page($jml_data, $limit, $filter, $no_hal) {
     return $hasil;
 }
 
-function generate_pageT($total_data, $limit, $idteam, $current_page) {
+function generate_pageT($total_data, $limit, $idteam, $current_page, $filter = '') {
     $total_pages = ceil($total_data / $limit); 
     $pagination = '';
+    $filter = !empty($filter) ? '&search=' . $filter: '';
+
     for ($i = 1; $i <= $total_pages; $i++) {
         if ($i == $current_page) {
             $pagination .= "<span>$i</span> ";
         } else {
-            $pagination .= "<a href=\"?page=$i&idteam=$idteam\">$i</a> ";
+            $pagination .= "<a href=\"?page=$i&idteam=$idteam$filter\">$i</a> ";
         }
     }
     return $pagination;

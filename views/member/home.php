@@ -80,7 +80,9 @@ if (!$teams) {
                             <td><?php echo htmlspecialchars($row['team_name']); ?></td>
                             <td><?php echo htmlspecialchars($row['game_name']); ?></td> 
                             <td>
-                                <a href="join-proposal.php?idteam=<?php echo $row['idteam']; ?>">Join Proposal</a>
+                                <a href="join-proposal.php?idteam=<?php echo $row['idteam']; ?>">Join Proposal</a> |
+                                <a href="member-achievement-view.php?idteam=<?php echo $row['idteam']; ?>">Achievement</a> |
+                                <a href="member-event-view.php?idteam=<?php echo $row['idteam']; ?>">Event</a>
                             </td>
                         </tr>
                     <?php endwhile; ?>

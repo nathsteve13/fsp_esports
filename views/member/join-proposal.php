@@ -106,9 +106,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <input type="submit" value="New Proposal" class="submit-button">
                 </div>
             </form>
+            <a href="home.php" class="back-button">Back to Home</a>
         </div>
     </div>
-
 </body>
 
 </html>
