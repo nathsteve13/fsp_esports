@@ -21,12 +21,12 @@ $team = new Team();
 $no_hal = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $limit = 10;
 $offset = ($no_hal - 1) * $limit;
+$filter = isset($_GET['cari']) ? $_GET['cari'] : '';
+$jumlahData = $team->countTeams($filter);
 
-$jumlahData = $team->countTeams();
+$teams = $team->getTeams($offset, $limit,$filter);
 
-$teams = $team->getTeams($offset, $limit);
-
-$pagination = generate_page($jumlahData, $limit, '', $no_hal);
+$pagination = generate_page($jumlahData, $limit, $filter, $no_hal);
 
 if (!$teams) {
     die("Failed to load teams data.");
@@ -58,7 +58,10 @@ if (!$teams) {
 
     <div class="main-content">
         <h1>Teams List</h1>
-
+        <form method="GET" action="home.php">
+            <input type="text" name="cari" placeholder="Search teams" value="<?php echo htmlspecialchars($filter); ?>">
+            <button type="submit">Search</button>
+        </form>
         <table class="styled-table">
             <thead>
                 <tr>
@@ -69,6 +72,7 @@ if (!$teams) {
                 </tr>
             </thead>
             <tbody>
+                
                 <?php if ($teams->num_rows > 0): ?>
                     <?php while ($row = $teams->fetch_assoc()): ?>
                         <tr>

@@ -8,13 +8,17 @@ class Team extends ParentClass
     {
         parent::__construct();
     }
-    public function countTeams()
-    {
-        $sql = "SELECT COUNT(*) AS total FROM team";
-        $result = $this->mysqli->query($sql);
-        $row = $result->fetch_assoc();
-        return $row['total'];
+    public function countTeams($filter = '')
+{
+    $sql = "SELECT COUNT(*) AS total FROM team";
+    if (!empty($filter)) {
+        $sql .= " WHERE name LIKE '%$filter%'";
     }
+    $result = $this->mysqli->query($sql);
+    $row = $result->fetch_assoc();
+    return $row['total'];
+}
+
 
     public function getEventsByTeam($idteam, $offset = 0, $limit = 10)
     {
@@ -112,27 +116,29 @@ class Team extends ParentClass
         return $stmt->get_result();
     }
 
-    public function getTeams($offset = 0, $limit = 0)
-    {
-        $sql = "SELECT team.idteam, team.name AS team_name, game.name AS game_name 
+    public function getTeams($offset = 0, $limit = 0, $filter = ''){
+    $sql = "SELECT team.idteam, team.name AS team_name, game.name AS game_name 
             FROM team 
-            JOIN game ON team.idgame = game.idgame";
-
-        if ($limit > 0) {
-            $sql .= " LIMIT ?, ?";
-            $stmt = $this->mysqli->prepare($sql);
-            $stmt->bind_param('ii', $offset, $limit);
-        } else {
-            $stmt = $this->mysqli->prepare($sql);
-        }
-
-        if (!$stmt) {
-            die("Prepare statement failed: " . $this->mysqli->error);
-        }
-
-        $stmt->execute();
-        return $stmt->get_result();
+            JOIN game ON team.idgame = game.idgame
+            WHERE team.name LIKE ?";
+    if ($limit > 0) {
+        $sql .= " LIMIT ?, ?";
     }
+    $stmt = $this->mysqli->prepare($sql);
+    if (!$stmt) {
+        die("Prepare statement failed: " . $this->mysqli->error);
+    }
+    $filter = "%" . $filter . "%";
+
+    if ($limit > 0) {
+        $stmt->bind_param('sii', $filter, $offset, $limit);
+    } else {
+        $stmt->bind_param('s', $filter);
+    }
+    $stmt->execute();
+    return $stmt->get_result();
+}
+
 
     public function getAllTeams() //untuk tambah team ke event
     {
