@@ -83,21 +83,18 @@ class JoinProposal extends ParentClass {
     }
 
     public function acceptProposal($idteam, $idmember) {
-        // Cek apakah anggota sudah ada di team_members
         $sql = "SELECT * FROM team_members WHERE idteam = ? AND idmember = ?";
         $stmt = $this->mysqli->prepare($sql);
         $stmt->bind_param("ii", $idteam, $idmember);
         $stmt->execute();
         $result = $stmt->get_result();
         
-        if ($result->num_rows == 0) { // Jika anggota belum ada
-            // Lakukan insert
+        if ($result->num_rows == 0) { 
             $sql = "INSERT INTO team_members (idteam, idmember) VALUES (?, ?)";
             $stmt = $this->mysqli->prepare($sql);
             $stmt->bind_param("ii", $idteam, $idmember);
             $stmt->execute();
         }
-        // Update status menjadi 'approved'
         $sql = "UPDATE join_proposal SET status = 'approved' WHERE idteam = ? AND idmember = ?";
         $stmt = $this->mysqli->prepare($sql);
         $stmt->bind_param("ii", $idteam, $idmember);

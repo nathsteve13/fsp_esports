@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Team</title>
-    <link rel="stylesheet" href="../../../public/css/style-admin.css"> <!-- External CSS -->
+    <link rel="stylesheet" href="../../../public/css/style-admin.css"> 
 </head>
 <body>
 

@@ -94,7 +94,6 @@ if (!$teams) {
             </tbody>
         </table>
 
-        <!-- Pagination -->
         <div class="pagination">
             <?php echo $pagination; ?>
         </div>

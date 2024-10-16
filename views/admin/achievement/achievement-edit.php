@@ -26,7 +26,7 @@ if (isset($_GET['id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Achievement</title>
-    <link rel="stylesheet" href="../../../public/css/style-admin.css"> <!-- External CSS -->
+    <link rel="stylesheet" href="../../../public/css/style-admin.css">
 </head>
 
 <body>

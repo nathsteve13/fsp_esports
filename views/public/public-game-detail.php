@@ -14,10 +14,8 @@ if (isset($_GET['id'])) {
         exit;
     }
 
-    // Mendapatkan tim yang memainkan game ini menggunakan kelas Team
     $teams = $team->getTeamsByGameId($game_id);
 
-    // Menggabungkan nama tim menjadi satu array
     $team_names = [];
     if ($teams && $teams->num_rows > 0) {
         while ($team_data = $teams->fetch_assoc()) {
