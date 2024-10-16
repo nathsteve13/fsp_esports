@@ -7,6 +7,28 @@ class JoinProposal extends ParentClass {
         parent::__construct();
     }
 
+    public function getAllProposals($limit, $offset)
+    {
+        $sql = "SELECT jp.idmember, m.fname, m.lname, m.username, jp.description, t.name AS team_name, jp.status
+                FROM join_proposal jp
+                JOIN member m ON jp.idmember = m.idmember
+                JOIN team t ON jp.idteam = t.idteam
+                LIMIT ? OFFSET ?";
+
+        $stmt = $this->mysqli->prepare($sql);
+        $stmt->bind_param("ii", $limit, $offset);
+        $stmt->execute();
+        return $stmt->get_result();
+    }
+
+    public function countAllProposals()
+    {
+        $sql = "SELECT COUNT(*) as total FROM join_proposal";
+        $result = $this->mysqli->query($sql);
+        return $result->fetch_assoc()['total'];
+    }
+
+
     public function getProposalsByMember($idmember, $limit, $offset) {
         $sql = "SELECT jp.idteam, t.name AS team_name, jp.description, jp.status 
                 FROM join_proposal jp

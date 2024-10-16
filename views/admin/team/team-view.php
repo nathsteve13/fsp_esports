@@ -41,7 +41,7 @@ if (!$teams) {
             <li><a href="../game/game-view.php">Games</a></li>
             <li><a href="../team/team-view.php">Teams</a></li>
             <li><a href="../member/member-view.php">Members</a></li>
-            <li><a href="../achievement/achievement-view.php">Achievements</a></li>
+            <li><a href="../achievement/achievement-view.php">Achievement</a></li>
         </ul>
     </div>
 
@@ -87,6 +87,7 @@ if (!$teams) {
         </div>
 
         <a href="team-add.php" class="add-button">Add New Team</a>
+        <a href="join-proposal-view-admin.php" class="add-button">View All Join Proposal</a>
     </div>
 </div>
 

@@ -83,7 +83,7 @@ $teams = $team->getAllTeams();
                     </div>
 
                     <div class="form-group">
-                        <label for="teams">Teams Participating (Already Set):</label><br>
+                        <label for="teams">Teams Participating (Already Set) : *You can only uncheck team</label><br>
                         <?php if ($teams->num_rows > 0): ?>
                             <?php while ($team_row = $teams->fetch_assoc()): ?>
                                 <input type="checkbox" name="teams[]" value="<?php echo $team_row['idteam']; ?>"

@@ -4,45 +4,16 @@ require_once("../../paging.php");
 
 $joinProposal = new JoinProposal();
 
-if (isset($_GET['idteam'])) {
-    $idteam = $_GET['idteam'];
-    $limit = 10;
-    $no_hal = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-    $offset = ($no_hal - 1) * $limit;
+$limit = 10;
+$no_hal = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$offset = ($no_hal - 1) * $limit;
 
-    $proposals = $joinProposal->getProposalsByTeam($idteam, $limit, $offset);
-    $total_proposals = $joinProposal->countProposalsByTeam($idteam);
-} else {
-    header("Location: team-view.php");
-    exit();
+$proposals = $joinProposal->getAllProposals($limit, $offset);
+$total_proposals = $joinProposal->countAllProposals();
+
+if (!$proposals) {
+    die("Failed to load proposals data.");
 }
-
-function redirect($idteam)
-{
-    header("Location: join-proposal-admin.php?idteam=$idteam&success=1");
-    exit();
-}
-
-if (isset($_GET['accept'])) {
-    $idmember = $_GET['accept'];
-    if (!empty($idmember)) { 
-        $joinProposal->acceptProposal($idteam, $idmember);
-        redirect($idteam);
-    } else {
-        echo "Invalid member ID.";
-    }
-}
-
-if (isset($_GET['reject'])) {
-    $idmember = $_GET['reject'];
-    if (!empty($idmember)) { 
-        $joinProposal->rejectProposal($idteam, $idmember);
-        redirect($idteam);
-    } else {
-        echo "Invalid member ID.";
-    };
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -68,16 +39,11 @@ if (isset($_GET['reject'])) {
                 <li><a href="../team/team-view.php">Teams</a></li>
                 <li><a href="../member/member-view.php">Members</a></li>
                 <li><a href="../achievement/achievement-view.php">Achievement</a></li>
-
             </ul>
         </div>
 
         <div class="main-content">
-            <h1>Join Proposals for Team</h1>
-
-            <?php if (isset($_GET['success'])): ?>
-                <p style="color:green;">Operation successful!</p>
-            <?php endif; ?>
+            <h1>All Join Proposals</h1>
 
             <table class="styled-table">
                 <thead>
@@ -87,7 +53,8 @@ if (isset($_GET['reject'])) {
                         <th>Last Name</th>
                         <th>Username</th>
                         <th>Description</th>
-                        <th>Actions</th>
+                        <th>Team Name</th> 
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -99,10 +66,8 @@ if (isset($_GET['reject'])) {
                                 <td><?php echo $row['lname']; ?></td>
                                 <td><?php echo $row['username']; ?></td>
                                 <td><?php echo $row['description']; ?></td>
-                                <td>
-                                    <a href="join-proposal-admin.php?accept=<?php echo $row['idmember']; ?>&idteam=<?php echo $idteam; ?>" class="accept-button">Accept</a> |
-                                    <a href="join-proposal-admin.php?reject=<?php echo $row['idmember']; ?>&idteam=<?php echo $idteam; ?>" onclick="return confirm('Are you sure to reject?')" class="reject-button">Reject</a>
-                                </td>
+                                <td><?php echo $row['team_name']; ?></td> 
+                                <td><?php echo $row['status']; ?></td> 
                             </tr>
                         <?php endwhile; ?>
                     <?php else: ?>

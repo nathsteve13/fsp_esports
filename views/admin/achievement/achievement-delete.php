@@ -6,6 +6,6 @@ $achievement = new Achievement();
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $achievement->deleteAchievement($id);
-    header("Location: achievement-view.php?hasil=3");
+    header("Location: ../team/team-view.php?hasil=1");
 }
 ?>
