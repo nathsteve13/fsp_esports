@@ -52,14 +52,16 @@ public function getEventsByTeam($idteam, $offset = 0, $limit = 10, $filter = '')
 }
 
 
-    public function countEventsByTeam($idteam)
+    public function countEventsByTeam($idteam,$filter = '')
     {
         $sql = "
             SELECT COUNT(*) as total
             FROM event
             JOIN event_teams ON event.idevent = event_teams.idevent
             WHERE event_teams.idteam = ?";
-
+        if (!empty($filter)) {
+            $sql .= " AND event.name LIKE '%$filter%'";
+        }
         $stmt = $this->mysqli->prepare($sql);
 
         if (!$stmt) {
@@ -112,14 +114,18 @@ public function getEventsByTeam($idteam, $offset = 0, $limit = 10, $filter = '')
     return $stmt->get_result();
 }
 
-    public function countAchievementsByTeam($idteam)
+    public function countAchievementsByTeam($idteam,$filter='')
     {
         $sql = "SELECT COUNT(*) as total FROM achievement WHERE idteam = ?";
+        if (!empty($filter)) {
+            $sql .= " AND name LIKE '%$filter%'";
+        }
         $stmt = $this->mysqli->prepare($sql);
 
         if (!$stmt) {
             die("Prepare statement failed: " . $this->mysqli->error);
         }
+        
 
         $stmt->bind_param('i', $idteam);
         $stmt->execute();

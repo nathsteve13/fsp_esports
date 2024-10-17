@@ -22,7 +22,7 @@ if (!$idteam) {
 
 $filter = isset($_GET['filter']) ? $_GET['filter'] : '';
 
-$jumlahData = $team->countAchievementsByTeam($idteam);  
+$jumlahData = $team->countAchievementsByTeam($idteam, $filter);  
 $achievements = $team->getAchievementsByTeam($idteam,$offset, $limit, $filter); 
 $pagination = generate_pageT($jumlahData, $limit, $idteam, $no_hal, $filter);
 

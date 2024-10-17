@@ -21,7 +21,7 @@ if (!$idteam) {
 
 $filter = isset($_GET['filter']) ? $_GET['filter'] : '';
 
-$jumlahData = $team->countEventsByTeam($idteam);
+$jumlahData = $team->countEventsByTeam($idteam, $filter);
 $events = $team->getEventsByTeam($idteam, $offset, $limit, $filter);
 $pagination = generate_pageT($jumlahData, $limit, $idteam, $no_hal, $filter);
 
