@@ -70,7 +70,8 @@ if (!$teams) {
                                 <a href="team-member-view.php?id=<?php echo $row['idteam']; ?>">Members</a> |
                                 <a href="team-achievement-view.php?idteam=<?php echo $row['idteam']; ?>">Achievement</a> |
                                 <a href="team-events-view.php?idteam=<?php echo $row['idteam']; ?>">Events</a> |
-                                <a href="join-proposal-admin.php?idteam=<?php echo $row['idteam']; ?>">Join Proposal</a>
+                                <a href="join-proposal-admin.php?idteam=<?php echo $row['idteam']; ?>">Join Proposal</a> |
+                                <a href="team-images-view.php?idteam=<?php echo $row['idteam']; ?>">Images</a>
                             </td>
                         </tr>
                     <?php endwhile; ?>
