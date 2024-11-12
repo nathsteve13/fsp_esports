@@ -16,7 +16,7 @@ if (!$teamData) {
 }
 
 // Ambil path gambar tim
-$imagePath = "/public/images/teams/" . $teamData['name'] . ".jpg";
+$imagePath = "/public/images/teams/" . $idteam . ".jpg";
 $imageExists = file_exists($_SERVER['DOCUMENT_ROOT'] . $imagePath);
 ?>
 
@@ -55,7 +55,7 @@ $imageExists = file_exists($_SERVER['DOCUMENT_ROOT'] . $imagePath);
                 <h2>Upload/Update Team Image</h2>
                 <form id="frmData" enctype="multipart/form-data">
                     <input type="file" name="photo" id="photo" accept=".jpg" required>
-                    <input type="hidden" name="namaFile" id="namaFile" value="<?php echo htmlspecialchars($teamData['name']); ?>">
+                    <input type="hidden" name="namaFile" id="namaFile" value="<?php echo htmlspecialchars($idteam); ?>">
                     <button type="button" id="btnupload">Upload Gambar</button>
                 </form>
             </div>

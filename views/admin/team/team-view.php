@@ -9,9 +9,7 @@ $limit = 10;
 $offset = ($no_hal - 1) * $limit;
 
 $jumlahData = $team->countTeams();
-
 $teams = $team->getTeams($offset, $limit);
-
 $pagination = generate_page($jumlahData, $limit, '', $no_hal);
 
 if (!$teams) {
@@ -52,6 +50,7 @@ if (!$teams) {
             <thead>
                 <tr>
                     <th>ID</th>
+                    <th>Logo</th>
                     <th>Team Name</th>
                     <th>Game Name</th>
                     <th>Actions</th> 
@@ -62,6 +61,15 @@ if (!$teams) {
                     <?php while ($row = $teams->fetch_assoc()): ?>
                         <tr>
                             <td><?php echo htmlspecialchars($row['idteam']); ?></td>
+                            <td>
+                                <?php 
+                                $imagePath = "/public/images/teams/" . $row['idteam'] . ".jpg";
+                                if (file_exists($_SERVER['DOCUMENT_ROOT'] . $imagePath)): ?>
+                                    <img src="<?php echo $imagePath; ?>" alt="Team Logo" width="50">
+                                <?php else: ?>
+                                    No logo
+                                <?php endif; ?>
+                            </td>
                             <td><?php echo htmlspecialchars($row['team_name']); ?></td>
                             <td><?php echo htmlspecialchars($row['game_name']); ?></td>
                             <td>
@@ -77,7 +85,7 @@ if (!$teams) {
                     <?php endwhile; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="4">No teams available</td>
+                        <td colspan="5">No teams available</td>
                     </tr>
                 <?php endif; ?>
             </tbody>
