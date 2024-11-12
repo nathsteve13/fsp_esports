@@ -49,6 +49,7 @@ if (!$proposals) {
         </div>
         <ul class="nav-links">
             <li><a href="home.php">Home</a></li>
+            <li><a href="my-team.php">My Team</a></li>
             <li><a href="join-proposal-view.php">Join Proposal</a></li>
         </ul>
         <ul class="nav-links">

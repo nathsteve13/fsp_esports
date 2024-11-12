@@ -31,6 +31,17 @@ class EventTeams extends ParentClass {
         $stmt->bind_param("i", $idevent);
         return $stmt->execute();
     }
+
+    public function getEventsByTeam($idteam) {
+        $sql = "SELECT e.name AS event_name, e.date, e.description
+                FROM event_teams et
+                JOIN event e ON et.idevent = e.idevent
+                WHERE et.idteam = ?";
+        $stmt = $this->mysqli->prepare($sql);
+        $stmt->bind_param("i", $idteam);
+        $stmt->execute();
+        return $stmt->get_result();
+    }        
     
 }
 ?>

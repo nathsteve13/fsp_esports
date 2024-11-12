@@ -76,4 +76,15 @@ class Achievement extends ParentClass
         $stmt->execute();
         return $stmt->get_result();
     }
+
+    public function getAchievementsByTeam($idteam) {
+        $sql = "SELECT name AS achievement_name, date, description
+                FROM achievement
+                WHERE idteam = ?";
+        $stmt = $this->mysqli->prepare($sql);
+        $stmt->bind_param("i", $idteam);
+        $stmt->execute();
+        return $stmt->get_result();
+    }
+    
 }
