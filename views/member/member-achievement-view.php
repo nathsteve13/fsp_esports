@@ -5,7 +5,7 @@ if (!isset($_SESSION['username'])) {
     exit();
 }
 
-require_once($_SERVER['DOCUMENT_ROOT'] . "/class/team.php");
+require_once("class/team.php");
 require_once("../paging.php");
 
 $team = new Team();

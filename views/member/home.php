@@ -4,8 +4,8 @@ if(!isset($_SESSION["username"])) {
     header("location: ../authentication/login.php");
 }
 
-require_once($_SERVER['DOCUMENT_ROOT'] . "/class/member.php");
-require_once($_SERVER['DOCUMENT_ROOT'] . "/class/team.php");
+require_once("class/member.php");
+require_once("class/team.php");
 require_once("../paging.php");
 
 $member = new Member();

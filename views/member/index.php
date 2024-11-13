@@ -5,7 +5,7 @@ if(!isset($_SESSION["username"])) {
     exit();
 }
 
-require_once($_SERVER['DOCUMENT_ROOT'] . "/class/member.php");
+require_once("class/member.php");
 
 $member = new Member();
 if($_SESSION['role'] == 'member'){

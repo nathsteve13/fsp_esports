@@ -1,7 +1,7 @@
 <?php 
 
-require_once($_SERVER['DOCUMENT_ROOT'] . "/class/team_members.php");
-require_once($_SERVER['DOCUMENT_ROOT'] . "/class/team.php"); 
+require_once("class/team_members.php");
+require_once("class/team.php"); 
 require_once("../paging.php");
 
 $teamMembers = new TeamMembers();
