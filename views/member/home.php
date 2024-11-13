@@ -4,8 +4,8 @@ if(!isset($_SESSION["username"])) {
     header("location: ../authentication/login.php");
 }
 
-require_once("class/member.php");
-require_once("class/team.php");
+require_once("../../class/member.php");
+require_once("../../class/team.php");
 require_once("../paging.php");
 
 $member = new Member();
@@ -39,13 +39,13 @@ if (!$teams) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    <link rel="stylesheet" href="../../../public/css/style-admin.css">
+    <link rel="stylesheet" href="../../public/css/style-admin.css">
 </head>
 <body>
 <div class="dashboard-container">
     <div class="sidebar">
         <div class="logo">
-            <a href=""><img src="../../../public/images/logoubaya.png" alt="Logo"></a>
+            <a href=""><img src="../../public/images/logoubaya.png" alt="Logo"></a>
         </div>
         <ul class="nav-links">
             <li><a href="home.php">Home</a></li>

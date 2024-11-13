@@ -4,8 +4,8 @@ if(!isset($_SESSION["username"])) {
     header("location: ../authentication/login.php");
 }
 
-require_once("class/member.php");
-require_once("class/team.php");
+require_once("../../class/member.php");
+require_once("../../class/team.php");
 
 $member = new Member();
 $team = new Team();
@@ -22,7 +22,7 @@ $idteam = isset($_GET['idteam']) ? $_GET['idteam'] : 0;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Join Proposals</title>
-    <link rel="stylesheet" href="../../../public/css/style-admin.css">
+    <link rel="stylesheet" href="../../public/css/style-admin.css">
 </head>
 
 <body>
@@ -30,7 +30,7 @@ $idteam = isset($_GET['idteam']) ? $_GET['idteam'] : 0;
     <div class="dashboard-container">
         <div class="sidebar">
             <div class="logo">
-                <a href="home.php"><img src="../../../public/images/logoubaya.png" alt="Logo"></a>
+                <a href="home.php"><img src="../../public/images/logoubaya.png" alt="Logo"></a>
             </div>
             <ul class="nav-links">
                 <li><a href="home.php">Home</a></li>

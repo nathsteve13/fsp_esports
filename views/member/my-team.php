@@ -5,10 +5,10 @@ if (!isset($_SESSION['username'])) {
     exit();
 }
 
-require_once("class/join_proposal.php");
-require_once("class/team_members.php");
-require_once("class/achievement.php");
-require_once("class/event_teams.php");
+require_once("../../class/join_proposal.php");
+require_once("../../class/team_members.php");
+require_once("../../class/achievement.php");
+require_once("../../class/event_teams.php");
 require_once("../paging.php");
 
 $joinProposal = new JoinProposal();
@@ -38,14 +38,14 @@ $pagination = generate_page($jumlahData, $limit, '', $no_hal);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Team</title>
-    <link rel="stylesheet" href="../../../public/css/style-admin.css">
+    <link rel="stylesheet" href="../../public/css/style-admin.css">
 </head>
 
 <body>
     <div class="dashboard-container">
         <div class="sidebar">
             <div class="logo">
-                <a href="home.php"><img src="../../../public/images/logoubaya.png" alt="Logo"></a>
+                <a href="home.php"><img src="../../public/images/logoubaya.png" alt="Logo"></a>
             </div>
             <ul class="nav-links">
                 <li><a href="home.php">Home</a></li>

@@ -4,9 +4,9 @@ if(!isset($_SESSION["username"])) {
     header("location: ../authentication/login.php");
 }
 
-require_once("class/join_proposal.php");
-require_once("class/member.php");
-require_once("class/team.php");
+require_once("../../class/join_proposal.php");
+require_once("../../class/member.php");
+require_once("../../class/team.php");
 
 $joinProposal = new JoinProposal();
 $member = new Member();
