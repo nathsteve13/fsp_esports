@@ -1,5 +1,5 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'] . "/class/event.php");
+require_once("../../../class/event.php");
 
 $event = new Event();
 

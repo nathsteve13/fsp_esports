@@ -1,5 +1,5 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'] . "/class/team.php");
+require_once("../../../class/team.php");
 
 if (isset($_GET['idteam']) && isset($_GET['idevent'])) {
     $idteam = $_GET['idteam'];

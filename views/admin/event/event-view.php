@@ -1,6 +1,6 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'] . "/class/event.php");
-require_once($_SERVER['DOCUMENT_ROOT'] . "/class/event_teams.php");
+require_once("../../../class/event.php");
+require_once("../../../class/event_teams.php");
 require_once("../../paging.php");
 
 $event = new Event();
