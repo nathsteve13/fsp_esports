@@ -32,7 +32,7 @@ if (!$teams) {
     <div class="dashboard-container">
         <div class="sidebar">
             <div class="logo">
-                <a href="index.php"><img src="../../public/images/logoubaya.png" alt="Logo"></a>
+                <a href="index.php"><img src="public\images\logoubaya.png" alt="Logo"></a>
             </div>
 
             <ul class="nav-links">
@@ -69,9 +69,9 @@ if (!$teams) {
                             <td><?php echo htmlspecialchars($row['team_name']); ?></td>
                             <td><?php echo htmlspecialchars($row['game_name']); ?></td>
                             <td>
-                                <a href="/views/public/public-team-member.php?id=<?php echo $row['idteam']; ?>">Members</a> |
-                                <a href="/views/public/public-team-achievement.php?idteam=<?php echo $row['idteam']; ?>">Achievements</a> |
-                                <a href="/views/public/public-team-event.php?idteam=<?php echo $row['idteam']; ?>">Events</a>
+                                <a href="/fsp_esports/views/public/public-team-member.php?id=<?php echo $row['idteam']; ?>">Members</a> |
+                                <a href="/fsp_esports/views/public/public-team-achievement.php?idteam=<?php echo $row['idteam']; ?>">Achievements</a> |
+                                <a href="/fsp_esports/views/public/public-team-event.php?idteam=<?php echo $row['idteam']; ?>">Events</a>
                             </td>
                         </tr>
                     <?php endwhile; ?>
