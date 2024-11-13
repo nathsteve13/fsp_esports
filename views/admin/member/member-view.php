@@ -1,5 +1,5 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'] . "/class/member.php");
+require_once("../../../class/member.php");
 require_once("../../paging.php");
 
 $member = new Member();

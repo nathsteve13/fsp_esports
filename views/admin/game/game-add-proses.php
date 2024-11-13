@@ -1,5 +1,5 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'] . "/class/game.php");
+require_once("../../../class/game.php");
 
 $game = new Game();
 

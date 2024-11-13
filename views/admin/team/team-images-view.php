@@ -1,5 +1,5 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'] . "/class/team.php");
+require_once("../../../class/team.php");
 
 $team = new Team();
 
@@ -15,9 +15,10 @@ if (!$teamData) {
     die("Team data not found.");
 }
 
-// Ambil path gambar tim
-$imagePath = "/public/images/teams/" . $idteam . ".jpg";
-$imageExists = file_exists($_SERVER['DOCUMENT_ROOT'] . $imagePath);
+$imagePath = "../../../public/images/teams/" . $idteam . ".jpg";
+
+$imageExists = file_exists(__DIR__ . '/' . $imagePath);
+// echo __DIR__ . '/' . $imagePath;
 ?>
 
 <!DOCTYPE html>

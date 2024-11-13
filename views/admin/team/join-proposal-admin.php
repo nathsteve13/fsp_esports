@@ -1,5 +1,5 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'] . "/class/join_proposal.php");
+require_once("../../../class/join_proposal.php");
 require_once("../../paging.php");
 
 $joinProposal = new JoinProposal();

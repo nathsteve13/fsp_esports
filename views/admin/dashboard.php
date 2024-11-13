@@ -5,7 +5,7 @@ if(!isset($_SESSION["username"])) {
     header("location: ../authentication/login.php");
 }
 
-require_once($_SERVER['DOCUMENT_ROOT'] . "/class/member.php");
+require_once("../../class/member.php");
 
 $member = new Member();
 if($_SESSION['role'] == 'admin'){
@@ -17,11 +17,11 @@ else{
 $current_user = $member->getMember($_SESSION["username"]);
 
 
-require_once($_SERVER['DOCUMENT_ROOT'] . "/class/team.php");
-require_once($_SERVER['DOCUMENT_ROOT'] . "/class/member.php");
-require_once($_SERVER['DOCUMENT_ROOT'] . "/class/join_proposal.php");
-require_once($_SERVER['DOCUMENT_ROOT'] . "/class/event.php");
-require_once($_SERVER['DOCUMENT_ROOT'] . "/class/achievement.php");
+require_once("../../class/team.php");
+require_once("../../class/member.php");
+require_once("../../class/join_proposal.php");
+require_once("../../class/event.php");
+require_once("../../class/achievement.php");
 
 $team = new Team();
 $member = new Member();
