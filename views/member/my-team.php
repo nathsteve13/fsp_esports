@@ -18,12 +18,10 @@ $eventTeams = new EventTeams();
 
 $idmember = $_SESSION['userid'];
 
-// Pengaturan pagination
 $no_hal = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $limit = 5;
 $offset = ($no_hal - 1) * $limit;
 
-// Mendapatkan tim yang sudah disetujui untuk member ini
 $jumlahData = $joinProposal->countProposalsByMember($idmember);
 $teams = $joinProposal->getProposalsByMember($idmember, $limit, $offset);
 
@@ -66,7 +64,6 @@ $pagination = generate_page($jumlahData, $limit, '', $no_hal);
                         <div class="team-section">
                             <h2><?php echo htmlspecialchars($team['team_name']); ?></h2>
 
-                            <!-- Daftar Anggota Tim -->
                             <h3>Members</h3>
                             <table class="styled-table">
                                 <thead>
@@ -96,7 +93,6 @@ $pagination = generate_page($jumlahData, $limit, '', $no_hal);
                                 </tbody>
                             </table>
 
-                            <!-- Pencapaian Tim -->
                             <h3>Achievements</h3>
                             <table class="styled-table">
                                 <thead>
@@ -128,7 +124,6 @@ $pagination = generate_page($jumlahData, $limit, '', $no_hal);
                                 </tbody>
                             </table>
 
-                            <!-- Event Tim -->
                             <h3>Events</h3>
                             <table class="styled-table">
                                 <thead>
