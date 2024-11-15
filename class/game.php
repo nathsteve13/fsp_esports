@@ -1,9 +1,11 @@
-<?php 
+<?php
 
 require_once("parent.php");
 
-class Game extends ParentClass {
-    public function __construct() {
+class Game extends ParentClass
+{
+    public function __construct()
+    {
         parent::__construct();
     }
     public function countGame()
@@ -14,7 +16,8 @@ class Game extends ParentClass {
         return $row['total'];
     }
 
-    public function getGame() {
+    public function getGame()
+    {
         $sql = "SELECT idgame, name FROM game";
         $stmt = $this->mysqli->prepare($sql);
 
@@ -26,7 +29,8 @@ class Game extends ParentClass {
         return $stmt->get_result();
     }
 
-    public function getGames($offset = 0, $limit = 0) {
+    public function getGames($offset = 0, $limit = 0)
+    {
         $sql = "SELECT * FROM game";
         if ($limit > 0) {
             $sql .= " LIMIT ?, ?";
@@ -38,9 +42,10 @@ class Game extends ParentClass {
         $stmt->execute();
         return $stmt->get_result();
     }
-    
 
-    public function getGameById($idgame) {
+
+    public function getGameById($idgame)
+    {
         $sql = "SELECT * FROM game WHERE idgame = ?";
         $stmt = $this->mysqli->prepare($sql);
 
@@ -53,7 +58,8 @@ class Game extends ParentClass {
         return $stmt->get_result()->fetch_assoc();
     }
 
-    public function addGame($name, $description) {
+    public function addGame($name, $description)
+    {
         $sql = "INSERT INTO game (name, description) VALUES (?, ?)";
         $stmt = $this->mysqli->prepare($sql);
 
@@ -70,7 +76,8 @@ class Game extends ParentClass {
         }
     }
 
-    public function editGame($idgame, $name, $description) {
+    public function editGame($idgame, $name, $description)
+    {
         $sql = "UPDATE game SET name = ?, description = ? WHERE idgame = ?";
         $stmt = $this->mysqli->prepare($sql);
 
@@ -82,7 +89,8 @@ class Game extends ParentClass {
         return $stmt->execute();
     }
 
-    public function deleteGame($idgame) {
+    public function deleteGame($idgame)
+    {
         $sql = "DELETE FROM game WHERE idgame = ?";
         $stmt = $this->mysqli->prepare($sql);
 
@@ -94,4 +102,3 @@ class Game extends ParentClass {
         return $stmt->execute();
     }
 }
-?>

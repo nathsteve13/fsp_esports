@@ -1,8 +1,9 @@
-<?php 
+<?php
 
 require_once("data.php");
 
-class parentClass {
+class parentClass
+{
     protected $mysqli;
 
     public function __construct()
@@ -10,5 +11,3 @@ class parentClass {
         $this->mysqli = new mysqli(SERVER_NAME, USER_NAME, PASSWORD, DB_NAME);
     }
 }
-
-?>

@@ -77,7 +77,8 @@ class Achievement extends ParentClass
         return $stmt->get_result();
     }
 
-    public function getAchievementsByTeam($idteam) {
+    public function getAchievementsByTeam($idteam)
+    {
         $sql = "SELECT name AS achievement_name, date, description
                 FROM achievement
                 WHERE idteam = ?";
@@ -86,5 +87,4 @@ class Achievement extends ParentClass
         $stmt->execute();
         return $stmt->get_result();
     }
-    
 }
