@@ -9,50 +9,50 @@ class Team extends ParentClass
         parent::__construct();
     }
     public function countTeams($filter = '')
-{
-    $sql = "SELECT COUNT(*) AS total FROM team";
-    if (!empty($filter)) {
-        $sql .= " WHERE name LIKE '%$filter%'";
+    {
+        $sql = "SELECT COUNT(*) AS total FROM team";
+        if (!empty($filter)) {
+            $sql .= " WHERE name LIKE '%$filter%'";
+        }
+        $result = $this->mysqli->query($sql);
+        $row = $result->fetch_assoc();
+        return $row['total'];
     }
-    $result = $this->mysqli->query($sql);
-    $row = $result->fetch_assoc();
-    return $row['total'];
-}
 
 
-public function getEventsByTeam($idteam, $offset = 0, $limit = 10, $filter = '')
-{
-    $sql = "
+    public function getEventsByTeam($idteam, $offset = 0, $limit = 10, $filter = '')
+    {
+        $sql = "
         SELECT event.idevent, event.name AS event_name, event.date, event.description
         FROM event
         JOIN event_teams ON event.idevent = event_teams.idevent
         WHERE event_teams.idteam = ?";
 
-    if (!empty($filter)) {
-        $sql .= " AND event.name LIKE ?";
-        $filterParam = "%" . $filter . "%";
+        if (!empty($filter)) {
+            $sql .= " AND event.name LIKE ?";
+            $filterParam = "%" . $filter . "%";
+        }
+
+        $sql .= " LIMIT ?, ?";
+
+        $stmt = $this->mysqli->prepare($sql);
+
+        if (!$stmt) {
+            die("Prepare statement failed: " . $this->mysqli->error);
+        }
+
+        if (!empty($filter)) {
+            $stmt->bind_param("isii", $idteam, $filterParam, $offset, $limit);
+        } else {
+            $stmt->bind_param("iii", $idteam, $offset, $limit);
+        }
+
+        $stmt->execute();
+        return $stmt->get_result();
     }
 
-    $sql .= " LIMIT ?, ?";
 
-    $stmt = $this->mysqli->prepare($sql);
-
-    if (!$stmt) {
-        die("Prepare statement failed: " . $this->mysqli->error);
-    }
-
-    if (!empty($filter)) {
-        $stmt->bind_param("isii", $idteam, $filterParam, $offset, $limit);
-    } else {
-        $stmt->bind_param("iii", $idteam, $offset, $limit);
-    }
-
-    $stmt->execute();
-    return $stmt->get_result();
-}
-
-
-    public function countEventsByTeam($idteam,$filter = '')
+    public function countEventsByTeam($idteam, $filter = '')
     {
         $sql = "
             SELECT COUNT(*) as total
@@ -76,45 +76,45 @@ public function getEventsByTeam($idteam, $offset = 0, $limit = 10, $filter = '')
     }
 
     public function getAchievementsByTeam($idteam, $offset = 0, $limit = 0, $filter = '')
-{
-    $sql = "SELECT a.idachievement, a.name, a.date, a.description 
-            FROM team as t
-            JOIN achievement as a ON t.idteam = a.idteam
-            WHERE t.idteam = ?";
-
-    if (!empty($filter)) {
-        $sql .= " AND a.name LIKE ?";
-        $filterParam = "%" . $filter . "%";
-    }
-
-    if ($limit > 0) {
-        $sql .= " LIMIT ?, ?";
-        $stmt = $this->mysqli->prepare($sql);
+    {
+        $sql = "SELECT a.idachievement, a.name, a.date, a.description 
+                FROM team as t
+                JOIN achievement as a ON t.idteam = a.idteam
+                WHERE t.idteam = ?";
 
         if (!empty($filter)) {
-            $stmt->bind_param('isii', $idteam, $filterParam, $offset, $limit);
-        } else {
-            $stmt->bind_param('iii', $idteam, $offset, $limit);
+            $sql .= " AND a.name LIKE ?";
+            $filterParam = "%" . $filter . "%";
         }
-    } else {
-        $stmt = $this->mysqli->prepare($sql);
 
-        if (!empty($filter)) {
-            $stmt->bind_param('is', $idteam, $filterParam);
+        if ($limit > 0) {
+            $sql .= " LIMIT ?, ?";
+            $stmt = $this->mysqli->prepare($sql);
+
+            if (!empty($filter)) {
+                $stmt->bind_param('isii', $idteam, $filterParam, $offset, $limit);
+            } else {
+                $stmt->bind_param('iii', $idteam, $offset, $limit);
+            }
         } else {
-            $stmt->bind_param('i', $idteam);
+            $stmt = $this->mysqli->prepare($sql);
+
+            if (!empty($filter)) {
+                $stmt->bind_param('is', $idteam, $filterParam);
+            } else {
+                $stmt->bind_param('i', $idteam);
+            }
         }
+
+        if (!$stmt) {
+            die("Prepare statement failed: " . $this->mysqli->error);
+        }
+
+        $stmt->execute();
+        return $stmt->get_result();
     }
 
-    if (!$stmt) {
-        die("Prepare statement failed: " . $this->mysqli->error);
-    }
-
-    $stmt->execute();
-    return $stmt->get_result();
-}
-
-    public function countAchievementsByTeam($idteam,$filter='')
+    public function countAchievementsByTeam($idteam, $filter = '')
     {
         $sql = "SELECT COUNT(*) as total FROM achievement WHERE idteam = ?";
         if (!empty($filter)) {
@@ -125,7 +125,7 @@ public function getEventsByTeam($idteam, $offset = 0, $limit = 10, $filter = '')
         if (!$stmt) {
             die("Prepare statement failed: " . $this->mysqli->error);
         }
-        
+
 
         $stmt->bind_param('i', $idteam);
         $stmt->execute();
@@ -150,28 +150,29 @@ public function getEventsByTeam($idteam, $offset = 0, $limit = 10, $filter = '')
         return $stmt->get_result();
     }
 
-    public function getTeams($offset = 0, $limit = 0, $filter = ''){
-    $sql = "SELECT team.idteam, team.name AS team_name, game.name AS game_name 
-            FROM team 
-            JOIN game ON team.idgame = game.idgame
-            WHERE team.name LIKE ?";
-    if ($limit > 0) {
-        $sql .= " LIMIT ?, ?";
-    }
-    $stmt = $this->mysqli->prepare($sql);
-    if (!$stmt) {
-        die("Prepare statement failed: " . $this->mysqli->error);
-    }
-    $filter = "%" . $filter . "%";
+    public function getTeams($offset = 0, $limit = 0, $filter = '')
+    {
+        $sql = "SELECT team.idteam, team.name AS team_name, game.name AS game_name 
+                FROM team 
+                JOIN game ON team.idgame = game.idgame
+                WHERE team.name LIKE ?";
+        if ($limit > 0) {
+            $sql .= " LIMIT ?, ?";
+        }
+        $stmt = $this->mysqli->prepare($sql);
+        if (!$stmt) {
+            die("Prepare statement failed: " . $this->mysqli->error);
+        }
+        $filter = "%" . $filter . "%";
 
-    if ($limit > 0) {
-        $stmt->bind_param('sii', $filter, $offset, $limit);
-    } else {
-        $stmt->bind_param('s', $filter);
+        if ($limit > 0) {
+            $stmt->bind_param('sii', $filter, $offset, $limit);
+        } else {
+            $stmt->bind_param('s', $filter);
+        }
+        $stmt->execute();
+        return $stmt->get_result();
     }
-    $stmt->execute();
-    return $stmt->get_result();
-}
 
 
     public function getAllTeams() //untuk tambah team ke event
