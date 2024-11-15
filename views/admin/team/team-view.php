@@ -63,10 +63,8 @@ if (!$teams) {
                                 <td><?php echo htmlspecialchars($row['idteam']); ?></td>
                                 <td>
                                     <?php
-                                    // Path relatif dari file ini ke gambar
                                     $imagePath = "../../../public/images/teams/" . $row['idteam'] . ".jpg";
 
-                                    // Cek apakah file gambar ada menggunakan path relatif
                                     if (file_exists(__DIR__ . '/' . $imagePath)): ?>
                                         <img src="<?php echo $imagePath; ?>" alt="Team Logo" width="50">
                                     <?php else: ?>

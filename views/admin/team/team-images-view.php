@@ -9,7 +9,6 @@ if (!$idteam) {
     die("Team ID is required.");
 }
 
-// Dapatkan nama tim
 $teamData = $team->getTeamById($idteam);
 if (!$teamData) {
     die("Team data not found.");
@@ -18,7 +17,6 @@ if (!$teamData) {
 $imagePath = "../../../public/images/teams/" . $idteam . ".jpg";
 
 $imageExists = file_exists(__DIR__ . '/' . $imagePath);
-// echo __DIR__ . '/' . $imagePath;
 ?>
 
 <!DOCTYPE html>
@@ -51,7 +49,6 @@ $imageExists = file_exists(__DIR__ . '/' . $imagePath);
         <div class="main-content">
             <h1>Team ID: <?php echo htmlspecialchars($idteam); ?></h1>
 
-            <!-- Form Upload Gambar Team -->
             <div class="upload-section">
                 <h2>Upload/Update Team Image</h2>
                 <form id="frmData" enctype="multipart/form-data">
@@ -61,7 +58,6 @@ $imageExists = file_exists(__DIR__ . '/' . $imagePath);
                 </form>
             </div>
 
-            <!-- Tabel untuk Menampilkan Nama dan Gambar Team -->
             <table class="styled-table">
                 <thead>
                     <tr>
@@ -88,7 +84,6 @@ $imageExists = file_exists(__DIR__ . '/' . $imagePath);
     </div>
 
     <script>
-        // JavaScript untuk mengirim data dengan AJAX
         $("body").on("click", "#btnupload", function() {
             var formData = new FormData($("#frmData")[0]);
             $.ajax({
@@ -102,7 +97,7 @@ $imageExists = file_exists(__DIR__ . '/' . $imagePath);
                 processData: false,
                 success: function(response) {
                     alert(response);
-                    location.reload(); // Refresh halaman setelah upload gambar berhasil
+                    location.reload(); 
                 }
             });
         });
