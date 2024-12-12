@@ -20,14 +20,7 @@ class TeamMembers extends ParentClass
         $stmt->execute();
         return $stmt->get_result();
     }
-
-    public function addMemberToTeam($idteam, $idmember)
-    {
-        $sql = "INSERT INTO team_members (idteam, idmember) VALUES (?, ?)";
-        $stmt = $this->mysqli->prepare($sql);
-        $stmt->bind_param("ii", $idteam, $idmember);
-        return $stmt->execute();
-    }
+    
 
     public function deleteMemberFromTeam($idteam, $idmember)
     {
