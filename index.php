@@ -22,12 +22,14 @@ if (!$teams) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="public/css/style-admin.css">
-    </head>
+</head>
+
 <body>
     <div class="dashboard-container">
         <div class="sidebar">
@@ -47,47 +49,59 @@ if (!$teams) {
         </div>
 
         <div class="main-content">
-            
+
             <div class="user-info">
                 <h2>UBAYA Informatics E-Sports</h2>
             </div>
 
             <table class="styled-table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Team Name</th>
-                    <th>Game Name</th>
-                    <th>Actions</th> 
-                </tr>
-            </thead>
-            <tbody>
-                <?php if ($teams->num_rows > 0): ?>
-                    <?php while ($row = $teams->fetch_assoc()): ?>
-                        <tr>
-                            <td><?php echo htmlspecialchars($row['idteam']); ?></td>
-                            <td><?php echo htmlspecialchars($row['team_name']); ?></td>
-                            <td><?php echo htmlspecialchars($row['game_name']); ?></td>
-                            <td>
-                                <a href="/fsp_esports/views/public/public-team-member.php?id=<?php echo $row['idteam']; ?>">Members</a> |
-                                <a href="/fsp_esports/views/public/public-team-achievement.php?idteam=<?php echo $row['idteam']; ?>">Achievements</a> |
-                                <a href="/fsp_esports/views/public/public-team-event.php?idteam=<?php echo $row['idteam']; ?>">Events</a>
-                            </td>
-                        </tr>
-                    <?php endwhile; ?>
-                <?php else: ?>
+                <thead>
                     <tr>
-                        <td colspan="4">No teams available</td>
+                        <th>ID</th>
+                        <th>Logo Team</th>
+                        <th>Team Name</th>
+                        <th>Game Name</th>
+                        <th>Actions</th>
                     </tr>
-                <?php endif; ?>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <?php if ($teams->num_rows > 0): ?>
+                        <?php while ($row = $teams->fetch_assoc()): ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars($row['idteam']); ?></td>
+                                <td>
+                                    <?php
+                                    $imagePath = "/public/images/teams/" . $row['idteam'] . ".jpg";
 
-        <div class="pagination">
-            <?php echo $pagination; ?>
-        </div>
-            
+                                    if (file_exists(__DIR__ . '/' . $imagePath)): ?>
+                                        <img src="<?php echo $imagePath; ?>" alt="Team Logo" width="50">
+                                    <?php else: ?>
+                                        No logo
+                                    <?php endif; ?>
+                                </td>
+                                <td><?php echo htmlspecialchars($row['team_name']); ?></td>
+                                <td><?php echo htmlspecialchars($row['game_name']); ?></td>
+                                <td>
+                                    <a href="/fsp_esports/views/public/public-team-member.php?id=<?php echo $row['idteam']; ?>">Members</a> |
+                                    <a href="/fsp_esports/views/public/public-team-achievement.php?idteam=<?php echo $row['idteam']; ?>">Achievements</a> |
+                                    <a href="/fsp_esports/views/public/public-team-event.php?idteam=<?php echo $row['idteam']; ?>">Events</a>
+                                </td>
+                            </tr>
+                        <?php endwhile; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="5">No teams available</td>
+                        </tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+
+            <div class="pagination">
+                <?php echo $pagination; ?>
+            </div>
+
         </div>
     </div>
 </body>
+
 </html>
