@@ -35,61 +35,53 @@ if (isset($_GET['id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Detail</title>
-    <link rel="stylesheet" href="../../public/css/style-admin.css">
+    <link rel="stylesheet" href="../../public/css/style-public.css">
 </head>
 
 <body>
-
-    <div class="dashboard-container">
-        <div class="sidebar">
+    <div class="container">
+        <header class="header">
             <div class="logo">
-                <a href="../../index.php"><img src="../../public/images/logoubaya.png" alt="Logo"></a>
+                <a href="../../index.php">
+                    <img src="../../public/images/logoubaya.png" alt="Logo">
+                </a>
+            </div>
+            <nav class="nav">
+                <a href="../../index.php">Team</a>
+                <a href="public-game-view.php">Game</a>
+                <a href="../authentication/login.php">Login</a>
+                <a href="../authentication/register.php">Register</a>
+            </nav>
+        </header>
+
+        <div class="banner" style="background: url('../../public/images/banner.jpg') no-repeat center center/cover;">
+            <h1>Game Detail</h1>
+            <p><?php echo htmlspecialchars($game_data['name']); ?></p>
+        </div>
+
+        <main class="main">
+            <div class="card">
+                <h2>Game Information</h2>
+                <p><strong>ID:</strong> <?php echo htmlspecialchars($game_data['idgame']); ?></p>
+                <p><strong>Name:</strong> <?php echo htmlspecialchars($game_data['name']); ?></p>
             </div>
 
-            <ul class="nav-links">
-                <li><a href="../../index.php">Team</a></li>
-                <li><a href="public-game-view.php">Game</a></li>
-            </ul>
-
-            <ul class="nav-links">
-                <li><a href="../authentication/login.php">Login</a></li>
-                <li><a href="../authentication/register.php">Register</a></li>
-            </ul>
-        </div>
-
-        <div class="main-content">
-            <h1>Game Detail</h1>
-
-            <table class="styled-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Game Name</th>
-                        <th>Teams</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><?php echo htmlspecialchars($game_data['idgame']); ?></td>
-                        <td><?php echo htmlspecialchars($game_data['name']); ?></td>
-                        <td>
-                            <?php if (!empty($team_names)): ?>
-                                <ul>
-                                    <?php foreach ($team_names as $team_name): ?>
-                                        <li><?php echo $team_name; ?></li>
-                                    <?php endforeach; ?>
-                                </ul>
-                            <?php else: ?>
-                                <p>No teams are playing this game.</p>
-                            <?php endif; ?>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="card">
+                <h2>Teams Playing This Game</h2>
+                <?php if (!empty($team_names)): ?>
+                    <ul>
+                        <?php foreach ($team_names as $team_name): ?>
+                            <li><?php echo $team_name; ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php else: ?>
+                    <p>No teams are playing this game.</p>
+                <?php endif; ?>
+            </div>
 
             <a href="public-game-view.php" class="back-button">Back to Games List</a>
-        </div>
+        </main>
     </div>
-
 </body>
+
 </html>
