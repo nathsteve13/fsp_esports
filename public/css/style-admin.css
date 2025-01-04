@@ -7,6 +7,7 @@ body {
 .dashboard-container {
     display: flex;
     height: 100vh;
+    flex-direction: row;
 }
 
 .sidebar {
@@ -17,13 +18,13 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: auto;
 }
 
 .sidebar .logo img {
     width: 150px;
     margin-bottom: 20px;
 }
+
 .sidebar .user-info {
     margin-bottom: 30px;
 }
@@ -59,14 +60,12 @@ body {
     background-color: #3700b3;
 }
 
-/* Main Content Styling */
 .main-content {
     flex-grow: 1;
     background-color: #ffffff;
     padding: 40px;
 }
 
-/* Table Styling */
 .styled-table {
     width: 100%;
     border-collapse: collapse;
@@ -96,7 +95,6 @@ body {
     background-color: #e0e0e0;
 }
 
-/* Button Styling */
 .add-button {
     display: inline-block;
     padding: 10px 20px;
@@ -111,13 +109,11 @@ body {
     background-color: #3700b3;
 }
 
-/* Pagination Styling */
 .pagination {
     margin-top: 20px;
     text-align: center;
 }
 
-/* General form styling */
 .form-container {
     background-color: #ffffff;
     padding: 30px;
@@ -189,3 +185,67 @@ body {
     padding: 40px;
 }
 
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .dashboard-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 10px;
+    }
+
+    .sidebar .logo img {
+        width: 100px;
+    }
+
+    .nav-links {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .nav-links li {
+        margin: 0;
+    }
+
+    .main-content {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-links a {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .styled-table th, .styled-table td {
+        padding: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-container {
+        padding: 20px;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="date"],
+    .form-group select,
+    .form-group textarea {
+        padding: 8px;
+    }
+
+    .submit-button {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
