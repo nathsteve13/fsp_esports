@@ -22,12 +22,14 @@ if (!$teams) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="public/css/style-public.css">
 </head>
+
 <body>
     <div class="container">
         <header class="header">
@@ -55,11 +57,18 @@ if (!$teams) {
                 <?php if ($teams->num_rows > 0): ?>
                     <?php while ($row = $teams->fetch_assoc()): ?>
                         <div class="card">
+                            <?php
+                            $imagePath = "public/images/teams/" . $row['idteam'] . ".jpg";
+                            if (file_exists(__DIR__ . '/' . $imagePath)): ?>
+                                <img src="<?php echo $imagePath; ?>" alt="Team Logo" width="100" height="100" style="object-fit: cover; margin-bottom: 10px;">
+                            <?php else: ?>
+                                No logo
+                            <?php endif; ?>
                             <h2><?php echo htmlspecialchars($row['team_name']); ?></h2>
                             <p>Game: <?php echo htmlspecialchars($row['game_name']); ?></p>
                             <div class="card-actions">
-                                <a href="views/public/public-team-member.php?id=<?php echo $row['idteam']; ?>">Members</a> 
-                                <a href="views/public/public-team-achievement.php?idteam=<?php echo $row['idteam']; ?>">Achievements</a> 
+                                <a href="views/public/public-team-member.php?id=<?php echo $row['idteam']; ?>">Members</a>
+                                <a href="views/public/public-team-achievement.php?idteam=<?php echo $row['idteam']; ?>">Achievements</a>
                                 <a href="views/public/public-team-event.php?idteam=<?php echo $row['idteam']; ?>">Events</a>
                             </div>
                         </div>
@@ -75,4 +84,5 @@ if (!$teams) {
         </main>
     </div>
 </body>
+
 </html>
