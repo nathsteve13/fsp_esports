@@ -41,7 +41,6 @@ body {
     justify-content: center;
     color: white;
     text-align: center;
-    
 }
 
 .banner::before {
@@ -70,6 +69,7 @@ body {
     font-size: 1.2rem;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
 }
+
 .main {
     flex: 1;
     padding: 2rem;
@@ -133,3 +133,62 @@ body {
     color: white;
 }
 
+/* Responsive Design */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .header .nav {
+        margin-top: 1rem;
+    }
+
+    .header .nav a {
+        margin: 0.5rem 0;
+    }
+
+    .banner {
+        height: 200px;
+    }
+
+    .banner h1 {
+        font-size: 2rem;
+    }
+
+    .banner p {
+        font-size: 1rem;
+    }
+
+    .card-container {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        padding: 1rem;
+    }
+
+    .banner h1 {
+        font-size: 1.5rem;
+    }
+
+    .banner p {
+        font-size: 0.9rem;
+    }
+
+    .card-container {
+        grid-template-columns: 1fr;
+    }
+
+    .card-actions a {
+        font-size: 0.8rem;
+        padding: 0.3rem 0.8rem;
+    }
+
+    .pagination a {
+        font-size: 0.8rem;
+        padding: 0.3rem 0.8rem;
+    }
+}
